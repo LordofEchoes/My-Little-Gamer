@@ -3,13 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MainMenu : MonoBehaviour
+public class MainMenuScript : MonoBehaviour
 {
+    public float speed;
+    public float delay;
+    public GameObject PlayGameObject;
+    /*
+    Main Menu Script:
+    Moves the scene to the next one
+    */
     public void PlayGame()
     { 
+        
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
-
     public void QuitGame()
     {
         Debug.Log("Game Quit");
