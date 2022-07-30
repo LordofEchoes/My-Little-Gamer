@@ -6,6 +6,7 @@ using System;
 
 public class CharacterStats : MonoBehaviour
 {
+    [SerializeField] string characterName;
     public int maxHealth = 100;
     public int currentHealth {get;private set;}
     public int maxStat = 20;
@@ -22,6 +23,17 @@ public class CharacterStats : MonoBehaviour
     // 4 positioning
     // 5 mechanics
 
+    // Setter and Getter for chracter Name variable
+    public void SetName(string name)
+    {
+        characterName = name;
+    }
+
+    public string GetName()
+    {
+        return characterName;
+    }
+    
     public int GetStatSum()
     {
         return statSum;
@@ -31,6 +43,7 @@ public class CharacterStats : MonoBehaviour
     public void Awake()
     {
         currentHealth = maxHealth;
+        SetName("");
         for (int i = 0; i < statNum; i++)
         {
             statTable[i] = new Stat();
@@ -80,5 +93,15 @@ public class CharacterStats : MonoBehaviour
         //Die in some way, overwritten
         Debug.Log(gameObject.name + " died.");
     }
+
+    public virtual int GetAmount()
+    {
+        return 0;
+    }
+    public virtual void SetAmount(int amount)
+    {
+
+    }
+
 
 }

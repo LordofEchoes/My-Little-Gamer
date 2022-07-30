@@ -5,11 +5,15 @@ using UnityEngine;
 public class PlayerStats : CharacterStats
 {
     // amount to change a stat by
-    public int amount = 0;
+    [SerializeField] int amount = 0;
 
-    public void SetAmount(int value)
+    public override void SetAmount(int value)
     {
         amount = value;
     }
     
+    public override int GetAmount()
+    {
+        return amount;
+    }
 }

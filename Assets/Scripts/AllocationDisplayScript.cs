@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class StatAllocationDisplayScript : MonoBehaviour
+public class AllocationDisplayScript : MonoBehaviour
 {
     public int pointsToAllocate = 6;
     public int availiablePoints;
@@ -15,6 +15,7 @@ public class StatAllocationDisplayScript : MonoBehaviour
         availiablePoints = pointsToAllocate;
         OnChange();
     }
+
     // returns the difference of the statsToAllocate vs charScript's number of stats.
     // called as a precaution to check if the StatAllocation is Zero then the player cannot allocate any more stats.
     // called whenever the Stat needs to be updated

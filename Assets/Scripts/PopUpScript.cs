@@ -5,27 +5,62 @@ using UnityEngine;
 public class PopUpScript : MonoBehaviour
 {
     // Start is called before the first frame update
-    public Transform box;
+    public GameObject obj;
+    public int entryDirection;
+    public int exitDirection;
     public int newLocation;
     public float speed;
-    public float delay;
+    public float delayVar;
     /*
-    Script moves box up into the user's screen and then down when closeDialog is clicked.
-    Further, it sets the next game Object to be active.
+    Script moves obj into the user's screen and then down when closeDialog is called.
+    script uses entry and exit direction to determine direction
     */
     public void OnEnable()
     {
-        box.localPosition = new Vector2(0, -Screen.height);
-        box.LeanMoveLocalY(newLocation,speed).setEaseOutExpo().delay = 1f;
+        switch(entryDirection)
+        {
+            case 1:
+                obj.transform.localPosition = new Vector2(0, Screen.height);
+                obj.transform.LeanMoveLocalY(newLocation,speed).setEaseOutExpo().delay = delayVar;      
+                break;
+            case 2:
+                obj.transform.localPosition = new Vector2(0, -Screen.height);
+                obj.transform.LeanMoveLocalY(newLocation,speed).setEaseOutExpo().delay = delayVar;      
+                break;
+            case 3:
+                obj.transform.localPosition = new Vector2(-Screen.width, 0);
+                obj.transform.LeanMoveLocalX(newLocation,speed).setEaseOutExpo().delay = delayVar;      
+                break;
+            case 4:
+                obj.transform.localPosition = new Vector2(Screen.width, 0);
+                obj.transform.LeanMoveLocalX(newLocation,speed).setEaseOutExpo().delay = delayVar;      
+                break;
+        }
+          
     }
 
     public void CloseDialog()
     {
-        box.LeanMoveLocalY(-Screen.height,speed).setEaseInExpo().setOnComplete(OnComplete);
+        switch(exitDirection)
+        {
+            case 1:
+                obj.transform.LeanMoveLocalY(Screen.height,speed).setEaseInExpo().setOnComplete(OnComplete);
+                break;
+            case 2:
+                obj.transform.LeanMoveLocalY(-Screen.height,speed).setEaseInExpo().setOnComplete(OnComplete);
+                break;
+            case 3:
+                obj.transform.LeanMoveLocalX(-Screen.width,speed).setEaseInExpo().setOnComplete(OnComplete);
+                break;
+            case 4:
+                obj.transform.LeanMoveLocalX(Screen.width,speed).setEaseInExpo().setOnComplete(OnComplete);
+                break;
+        }
+        
     }
 
-    public void OnComplete()
+    public virtual void OnComplete()
     {
-        gameObject.SetActive(false);
+        obj.SetActive(false);
     }
 }

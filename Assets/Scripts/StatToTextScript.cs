@@ -7,7 +7,7 @@ public class StatToTextScript : MonoBehaviour
 {
 
     [SerializeField] GameObject obj;
-    [SerializeField] PlayerStats charScript;
+    [SerializeField] CharacterStats charScript;
     public int key;
     public TextMeshProUGUI ValueText;
     [SerializeField] Stat stat;
@@ -15,7 +15,7 @@ public class StatToTextScript : MonoBehaviour
     // Do this at the Start after everyting is Awake
     void Start()
     {
-        charScript = obj.GetComponent<PlayerStats>();
+        charScript = obj.GetComponent<CharacterStats>();
         OnChange();
     }
     //called whenever a change to the stats occurs and the display needs to be updated.
