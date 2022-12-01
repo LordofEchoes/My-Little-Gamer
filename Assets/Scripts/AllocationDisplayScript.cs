@@ -5,14 +5,14 @@ using TMPro;
 
 public class AllocationDisplayScript : MonoBehaviour
 {
-    public int pointsToAllocate = 6;
-    public int availiablePoints;
+    [SerializeField] GameObject AlloObject;
+    private AllocationCheckScript AlloScript;
     public TextMeshProUGUI ValueText;
 
-    // Call onChange, after eveyrthing is Awake
+    // Call onChange, after everything is Awake
     void Start()
     {
-        availiablePoints = pointsToAllocate;
+        AlloScript = AlloObject.GetComponent<AllocationCheckScript>();
         OnChange();
     }
 
@@ -21,6 +21,6 @@ public class AllocationDisplayScript : MonoBehaviour
     // called whenever the Stat needs to be updated
     public void OnChange()
     {
-        ValueText.text = availiablePoints.ToString();
+        ValueText.text = AlloScript.AvailiablePoints.ToString();
     }
 }

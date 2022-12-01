@@ -4,16 +4,25 @@ using UnityEngine;
 
 public class PlayerStats : CharacterStats
 {
-    // amount to change a stat by
-    [SerializeField] int amount = 0;
+    
+    
+    public static PlayerStats instance;
 
-    public override void SetAmount(int value)
+    public override void Die()
     {
-        amount = value;
+        Debug.Log("Player has died. Game over.");
     }
     
-    public override int GetAmount()
+
+    // changes experience for the player's stats, modified by the happiness mod.
+    private void ChangeStatExperience(string StatName, int amount)
     {
-        return amount;
+        // calculate base, 50% of all amount
+        int baseXP = amount/2;
+        // happiness is other 50%
+        int happinessBonus = amount*StatTable["Happiness"].Value/MaxStat;
+        StatTable[StatName].ChangeExperience(baseXP+happinessBonus);
     }
+
+
 }
