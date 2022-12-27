@@ -50,4 +50,5 @@ public class Tactic
             _Proficiency += amount;
         }
     }
+
 }

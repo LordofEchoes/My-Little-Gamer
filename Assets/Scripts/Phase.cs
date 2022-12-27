@@ -50,4 +50,47 @@ public class Phase
     {
         TacticTable[tacticName].ChangeProficiency(amount);
     }
+
+    public int GetTacticPosition(int Roll, Dictionary<string, Stat> StatTable)
+    {
+        // that player looks for position 1 = 70 + Positioning Modifier. 
+        if(Roll <= 70 + StatTable["Positioning"].Value)
+        {
+            switch(CurrentTactic)
+            {
+                case "Farm":
+                return 1;
+                case "Poke":
+                return 2;
+                case "Engage":
+                return 3;
+            }
+        }
+        else if (Roll <= 70 + StatTable["Positioning"].Value*2)
+        {
+            switch(CurrentTactic)
+            {
+                case "Farm":
+                return 2;
+                case "Poke":
+                return 1;
+                case "Engage":
+                return 1;
+            }
+        }
+        else
+        {
+            switch(CurrentTactic)
+            {
+                case "Farm":
+                return 3;
+                case "Poke":
+                return 3;
+                case "Engage":
+                return 2;
+            }
+        }
+        // something went wrong
+        return 0;
+    }
 }
