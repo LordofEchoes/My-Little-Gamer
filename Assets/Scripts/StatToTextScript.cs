@@ -6,36 +6,42 @@ using TMPro;
 public class StatToTextScript : MonoBehaviour
 {
 
-    [SerializeField] GameObject obj;
-    [SerializeField] CharacterStats charScript;
-    public int key;
+    [SerializeField] GameObject Manager = null;
+    [SerializeField] CharacterStats CharScript;
+    public string key;
     public TextMeshProUGUI ValueText;
-    [SerializeField] Stat stat;
+    [SerializeField] Stat _stat;
     // Function to initialize the statTable and ping onChange() once to correctly display the text. 
     // Do this at the Start after everyting is Awake
     void Start()
     {
-        charScript = obj.GetComponent<CharacterStats>();
+        if (Manager != null)
+        {
+            CharScript = Manager.GetComponent<CharacterStats>();
+        }
+        else
+        {
+            Manager = GameObject.Find("UniversalGameManager");
+            CharScript = Manager.GetComponent<CharacterStats>();
+        }
         OnChange();
     }
     //called whenever a change to the stats occurs and the display needs to be updated.
     public void OnChange()
     {
-        if (key == 6)
+        if (key == "Gender")
         {
-            ValueText.text = charScript.gender;
+            ValueText.text = CharScript.Gender;
             return;
         }
-        else if (key <= 5 && key >= 0)
+        else if(CharScript.StatTable.ContainsKey(key))
         {
-            stat = charScript.statTable[key];
+            _stat = CharScript.StatTable[key];
         }
         else
         {
-            stat = new Stat();
+            _stat = new Stat();
         }
-        ValueText.text = stat.GetValue().ToString();
-        // Debug.Log("Key Value: " + key);
-        // Debug.Log("Stat Value: " + stat.GetValue().ToString());
+        ValueText.text = _stat.Value.ToString();
     }
 }

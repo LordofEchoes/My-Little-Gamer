@@ -5,49 +5,64 @@ using TMPro;
 
 public class AllocationCheckScript : MonoBehaviour
 {
-    [SerializeField] GameObject alloObj;
-    [SerializeField] GameObject playerObj;
-    [SerializeField] GameObject errorDisplayObj;
-    private AllocationDisplayScript alloScript;
-    private CharacterStats playerScript;
+    [SerializeField] GameObject AlloObject;
+    [SerializeField] GameObject PlayerObj;
+    [SerializeField] GameObject ErrorDisplayObject;
+    private AllocationDisplayScript AlloScript;
+    private CharacterStats PlayerScript;
+    public int PointsToAllocate;
+    public int AvailiablePoints;
     public TextMeshProUGUI ValueText;
+
+    //Awake make avaliable points so display can allocate it.
+    void Awake()
+    {
+        AvailiablePoints = PointsToAllocate;
+    }
 
     // Start is called before the first frame update
     // Takes the allocation and player objects and loads the scripts
     void Start()
     {
-        alloScript = alloObj.GetComponent<AllocationDisplayScript>();
-        playerScript = playerObj.GetComponent<CharacterStats>();
+        AlloScript = AlloObject.GetComponent<AllocationDisplayScript>();
+        PlayerScript = PlayerObj.GetComponent<CharacterStats>();
     }
     
     // Checks the allocation scripts and performs checks to see if there are enough allocation points
     // performs the player functions and allocation display functions if necessary.
-    public void OnChange(int index)
+    // uses get Player Stats GetAmount() to get the amount that the player script is changing by
+    public void OnChange(string StatName)
     {
-        if (alloScript.availiablePoints - playerScript.GetAmount()  > alloScript.pointsToAllocate || alloScript.availiablePoints - playerScript.GetAmount()  < 0)
+        if (AvailiablePoints - PlayerScript.Amount > PointsToAllocate)
         {
-            ValueText.text = ("Cannot have less than 0 availiable points");
-            errorDisplayObj.SetActive(true);
+            ValueText.text = ("Cannot have more than " + PointsToAllocate.ToString() + " availiable points.");
+            ErrorDisplayObject.SetActive(true);
             StartCoroutine(WaitForError());
             return;
         }
-        else if (playerScript.statTable[index].GetValue() + playerScript.GetAmount() < 1)
+        else if (AvailiablePoints - PlayerScript.Amount  < 0)
         {
-            ValueText.text = ("Cannot have less than 1 of a player stat");
-            errorDisplayObj.SetActive(true);
+            ValueText.text = ("Cannot have less than 0 availiable points.");
+            ErrorDisplayObject.SetActive(true);
             StartCoroutine(WaitForError());
-            
             return;
         }
-        playerScript.ModStat(index, playerScript.GetAmount());
-        alloScript.availiablePoints -= playerScript.GetAmount();
-        alloScript.OnChange();
+        else if (PlayerScript.StatTable[StatName].Value + PlayerScript.Amount < 1)
+        {
+            ValueText.text = ("Cannot have less than 1 of a player stat.");
+            ErrorDisplayObject.SetActive(true);
+            StartCoroutine(WaitForError());
+            return;
+        }
+        PlayerScript.ModStat(StatName, PlayerScript.Amount);
+        AvailiablePoints -= PlayerScript.Amount;
+        AlloScript.OnChange();
     }
 
     IEnumerator WaitForError()
     {
         yield return new WaitForSeconds (2);
-        errorDisplayObj.GetComponent<PopUpScript>().CloseDialog();
+        ErrorDisplayObject.GetComponent<PopUpScript>().CloseDialog();
     }
 
 }

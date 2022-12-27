@@ -6,18 +6,26 @@ using TMPro;
 public class NameDisplayScript : MonoBehaviour
 {
 
-    [SerializeField] GameObject nameObj;
-    [SerializeField] CharacterStats nameScript;
+    [SerializeField] GameObject NameObject = null;
+    [SerializeField] CharacterStats NameScript;
     public TextMeshProUGUI ValueText;
     // Start is called before the first frame update
     public void OnEnable()
     {
-        nameScript = nameObj.GetComponent<CharacterStats>();
+        if (NameObject != null)
+        {
+            NameScript = NameObject.GetComponent<CharacterStats>();
+        }
+        else
+        {
+            NameObject = GameObject.Find("UniversalGameManager");
+            NameScript = NameObject.GetComponent<CharacterStats>();
+        }
         OnChange();
     }
     public void OnChange()
     {
-        ValueText.text = nameScript.GetName();
+        ValueText.text = NameScript.Name;
     }
 
 }

@@ -5,13 +5,17 @@ using UnityEngine.SceneManagement;
 
 public class SceneFinishScript : MonoBehaviour
 {
+    // public GameObject Player;
+    public string NextSceneName;
     /*
     Simple reusable script:
     Moves the Scene to the next one
     */
     public void NextScene()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        // int currentSceneBuildIndex = SceneManager.GetActiveScene().buildIndex;
+        SceneManager.LoadScene(NextSceneName);
+        // SceneManager.MoveGameObjectToScene(Player, SceneManager.GetSceneByName(NextSceneName));
     }
 
     public void CloseDialog()

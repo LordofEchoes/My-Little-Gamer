@@ -4,27 +4,27 @@ using UnityEngine;
 
 public class StatContinueScript : MonoBehaviour
 {
-    [SerializeField] GameObject checkObj;
-    [SerializeField] GameObject failPopUpObj;
-    private AllocationDisplayScript checkScript;
-    private TransitionTextScript transitionScript;
+    [SerializeField] GameObject CheckObject;
+    [SerializeField] GameObject FailPopUpObject;
+    private AllocationCheckScript CheckScript;
+    private TransitionTextScript TransitionScript;
 
     // Load the scripts from their respective obj.
     void Start()
     {
-        checkScript = checkObj.GetComponent<AllocationDisplayScript>();
-        transitionScript = transform.GetComponent<TransitionTextScript>();
+        CheckScript = CheckObject.GetComponent<AllocationCheckScript>();
+        TransitionScript = transform.GetComponent<TransitionTextScript>();
     }
-    //checks if the checkObj's avaliablePoints equals to 0 and then either closes the transitionScript or puts the failure object.
+    //checks if the CheckObject's avaliablePoints equals to 0 and then either closes the TransitionScript or puts the failure object.
     public void CloseDialog()
     {
-        if (checkScript.availiablePoints == 0)
+        if (CheckScript.AvailiablePoints == 0)
         {
-            transitionScript.CloseDialog();
+            TransitionScript.CloseDialog();
         }
         else
         {
-            failPopUpObj.SetActive(true);
+            FailPopUpObject.SetActive(true);
         }
     }
 }

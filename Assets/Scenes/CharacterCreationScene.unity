@@ -1026,8 +1026,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1390866365}
-        m_TargetAssemblyTypeName: PlayerStats, Assembly-CSharp
-        m_MethodName: SetAmount
+        m_TargetAssemblyTypeName: CharacterStats, Assembly-CSharp
+        m_MethodName: set_Amount
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1040,13 +1040,13 @@ MonoBehaviour:
       - m_Target: {fileID: 935216530}
         m_TargetAssemblyTypeName: AllocationCheckScript, Assembly-CSharp
         m_MethodName: OnChange
-        m_Mode: 3
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 2
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: Focus
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 485030379}
@@ -1189,8 +1189,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88845c9150af9c14290c335f94b91fe6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nameObj: {fileID: 1390866363}
-  nameScript: {fileID: 0}
+  NameObject: {fileID: 1390866363}
+  NameScript: {fileID: 0}
   ValueText: {fileID: 131364993}
 --- !u!1 &100843568
 GameObject:
@@ -1785,13 +1785,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be62620a2deb80d4883812d2facf3c67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  obj: {fileID: 1059919278}
-  entryDirection: 2
-  exitDirection: 2
-  newLocation: 0
-  speed: 0.5
-  delayVar: 0.15
-  nextGameObject: {fileID: 1727590819}
+  Object: {fileID: 953741535}
+  EntryDirection: 4
+  ExitDirection: 3
+  NewLocation: 0
+  Speed: 1
+  DelayVar: 0.1
+  NextGameObject: {fileID: 1727590819}
 --- !u!114 &155009228
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1976,12 +1976,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebcce1e5799502f408a778bbc210e003, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  obj: {fileID: 1390866363}
-  charScript: {fileID: 0}
-  key: 0
+  Manager: {fileID: 0}
+  CharScript: {fileID: 0}
+  key: Happiness
   ValueText: {fileID: 1954853681}
-  stat:
-    baseValue: 1
 --- !u!1 &194535868
 GameObject:
   m_ObjectHideFlags: 0
@@ -2072,12 +2070,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebcce1e5799502f408a778bbc210e003, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  obj: {fileID: 1390866363}
-  charScript: {fileID: 0}
-  key: 5
+  Manager: {fileID: 0}
+  CharScript: {fileID: 0}
+  key: Mechanics
   ValueText: {fileID: 1051922531}
-  stat:
-    baseValue: 1
 --- !u!1 &213961671
 GameObject:
   m_ObjectHideFlags: 0
@@ -2613,12 +2609,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce624dec9ff66984f91b2132a03e5e40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  obj: {fileID: 265290884}
-  entryDirection: 2
-  exitDirection: 2
-  newLocation: 0
-  speed: 0.5
-  delayVar: 0.15
+  Object: {fileID: 265290884}
+  EntryDirection: 2
+  ExitDirection: 2
+  NewLocation: 0
+  Speed: 1
+  DelayVar: 0.1
 --- !u!114 &265290887
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2713,102 +2709,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!1 &266720421
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 266720426}
-  - component: {fileID: 266720425}
-  - component: {fileID: 266720424}
-  - component: {fileID: 266720423}
-  m_Layer: 5
-  m_Name: ErrorNotifier
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &266720423
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 266720421}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce624dec9ff66984f91b2132a03e5e40, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  obj: {fileID: 266720421}
-  entryDirection: 4
-  exitDirection: 4
-  newLocation: 0
-  speed: 0.5
-  delayVar: 0.15
---- !u!114 &266720424
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 266720421}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.78431374}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &266720425
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 266720421}
-  m_CullTransparentMesh: 1
---- !u!224 &266720426
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 266720421}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 734913406}
-  m_Father: {fileID: 1509079358}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &319413146
 GameObject:
   m_ObjectHideFlags: 0
@@ -3511,8 +3411,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1390866365}
-        m_TargetAssemblyTypeName: PlayerStats, Assembly-CSharp
-        m_MethodName: SetAmount
+        m_TargetAssemblyTypeName: CharacterStats, Assembly-CSharp
+        m_MethodName: set_Amount
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3525,13 +3425,13 @@ MonoBehaviour:
       - m_Target: {fileID: 935216530}
         m_TargetAssemblyTypeName: AllocationCheckScript, Assembly-CSharp
         m_MethodName: OnChange
-        m_Mode: 3
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 4
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: Positioning
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 1700625732}
@@ -4373,12 +4273,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebcce1e5799502f408a778bbc210e003, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  obj: {fileID: 1390866363}
-  charScript: {fileID: 0}
-  key: 2
+  Manager: {fileID: 0}
+  CharScript: {fileID: 0}
+  key: Focus
   ValueText: {fileID: 2070714571}
-  stat:
-    baseValue: 1
 --- !u!1 &504789538
 GameObject:
   m_ObjectHideFlags: 0
@@ -4950,7 +4848,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: female
+          m_StringArgument: Female
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 2031578526}
@@ -5358,8 +5256,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1390866365}
-        m_TargetAssemblyTypeName: PlayerStats, Assembly-CSharp
-        m_MethodName: SetAmount
+        m_TargetAssemblyTypeName: CharacterStats, Assembly-CSharp
+        m_MethodName: set_Amount
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5372,13 +5270,13 @@ MonoBehaviour:
       - m_Target: {fileID: 935216530}
         m_TargetAssemblyTypeName: AllocationCheckScript, Assembly-CSharp
         m_MethodName: OnChange
-        m_Mode: 3
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 1
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: Aggression
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 1020713404}
@@ -5814,12 +5712,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebcce1e5799502f408a778bbc210e003, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  obj: {fileID: 1390866363}
-  charScript: {fileID: 0}
-  key: 3
+  Manager: {fileID: 0}
+  CharScript: {fileID: 0}
+  key: Decisions
   ValueText: {fileID: 1052455088}
-  stat:
-    baseValue: 1
 --- !u!1 &733965732
 GameObject:
   m_ObjectHideFlags: 0
@@ -5905,8 +5801,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1390866365}
-        m_TargetAssemblyTypeName: PlayerStats, Assembly-CSharp
-        m_MethodName: SetAmount
+        m_TargetAssemblyTypeName: CharacterStats, Assembly-CSharp
+        m_MethodName: set_Amount
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5919,13 +5815,13 @@ MonoBehaviour:
       - m_Target: {fileID: 935216530}
         m_TargetAssemblyTypeName: AllocationCheckScript, Assembly-CSharp
         m_MethodName: OnChange
-        m_Mode: 3
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: Happiness
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 164913489}
@@ -5990,7 +5886,7 @@ GameObject:
   - component: {fileID: 734913405}
   - component: {fileID: 734913404}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: ErrorText (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6100,18 +5996,18 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 734913403}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 266720426}
+  m_Father: {fileID: 1899142422}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -20, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &777465322
 GameObject:
@@ -6321,13 +6217,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be62620a2deb80d4883812d2facf3c67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  obj: {fileID: 782079027}
-  entryDirection: 2
-  exitDirection: 2
-  newLocation: 0
-  speed: 0.5
-  delayVar: 0.15
-  nextGameObject: {fileID: 2031578524}
+  Object: {fileID: 782079027}
+  EntryDirection: 4
+  ExitDirection: 3
+  NewLocation: 0
+  Speed: 1
+  DelayVar: 0.1
+  NextGameObject: {fileID: 2031578524}
 --- !u!1 &783999251
 GameObject:
   m_ObjectHideFlags: 0
@@ -6362,7 +6258,7 @@ RectTransform:
   m_Children:
   - {fileID: 929824597}
   m_Father: {fileID: 1727590820}
-  m_RootOrder: 11
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -6381,12 +6277,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce624dec9ff66984f91b2132a03e5e40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  obj: {fileID: 783999251}
-  entryDirection: 2
-  exitDirection: 2
-  newLocation: 0
-  speed: 1
-  delayVar: 0.15
+  Object: {fileID: 783999251}
+  EntryDirection: 2
+  ExitDirection: 2
+  NewLocation: 0
+  Speed: 1
+  DelayVar: 0.1
 --- !u!114 &783999254
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6960,12 +6856,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce624dec9ff66984f91b2132a03e5e40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  obj: {fileID: 846491336}
-  entryDirection: 3
-  exitDirection: 3
-  newLocation: 0
-  speed: 0.5
-  delayVar: 0.15
+  Object: {fileID: 846491336}
+  EntryDirection: 2
+  ExitDirection: 2
+  NewLocation: 0
+  Speed: 1
+  DelayVar: 0.1
 --- !u!114 &846491339
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7558,12 +7454,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 935216527}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 819624792e7076d46a8c4aa31642deb6, type: 3}
+  m_Script: {fileID: 11500000, guid: 7a6fbca6bdbc1eb4ea6d44c71ecf9824, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  alloObj: {fileID: 935216527}
-  playerObj: {fileID: 1390866363}
-  errorDisplayObj: {fileID: 266720421}
+  AlloObject: {fileID: 935216527}
+  PlayerObj: {fileID: 1390866363}
+  ErrorDisplayObject: {fileID: 1509079357}
+  PointsToAllocate: 6
+  AvailiablePoints: 6
   ValueText: {fileID: 734913404}
 --- !u!114 &935216531
 MonoBehaviour:
@@ -7577,8 +7475,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 542afc0641cd467498d5402bfd025552, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pointsToAllocate: 6
-  availiablePoints: 0
+  AlloObject: {fileID: 935216527}
   ValueText: {fileID: 2039808246}
 --- !u!1 &953741535
 GameObject:
@@ -7633,9 +7530,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d96c9427add0b5c45a8f8021ea12d561, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  checkObj: {fileID: 1390866363}
-  confirmObj: {fileID: 1237034216}
-  failPopUpObj: {fileID: 265290884}
+  CheckObject: {fileID: 1390866363}
+  ConfirmObject: {fileID: 1237034216}
+  FailPopUpObject: {fileID: 265290884}
 --- !u!1 &965260630
 GameObject:
   m_ObjectHideFlags: 0
@@ -7860,12 +7757,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebcce1e5799502f408a778bbc210e003, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  obj: {fileID: 1390866363}
-  charScript: {fileID: 0}
-  key: 1
+  Manager: {fileID: 0}
+  CharScript: {fileID: 0}
+  key: Aggression
   ValueText: {fileID: 1568319430}
-  stat:
-    baseValue: 1
 --- !u!1 &1051922530
 GameObject:
   m_ObjectHideFlags: 0
@@ -8375,7 +8270,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1390866365}
         m_TargetAssemblyTypeName: CharacterStats, Assembly-CSharp
-        m_MethodName: SetName
+        m_MethodName: set_Name
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -8512,12 +8407,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce624dec9ff66984f91b2132a03e5e40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  obj: {fileID: 1059919278}
-  entryDirection: 2
-  exitDirection: 2
-  newLocation: 0
-  speed: 0.5
-  delayVar: 0.15
+  Object: {fileID: 953741535}
+  EntryDirection: 4
+  ExitDirection: 3
+  NewLocation: 0
+  Speed: 1
+  DelayVar: 0.1
 --- !u!114 &1059919281
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8530,6 +8425,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af73fef135f56b14e8efb6d1118c210e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  NextSceneName: GameScene
 --- !u!1 &1085695470
 GameObject:
   m_ObjectHideFlags: 0
@@ -8700,7 +8596,7 @@ RectTransform:
   m_Children:
   - {fileID: 1787892044}
   m_Father: {fileID: 1727590820}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -8853,12 +8749,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce624dec9ff66984f91b2132a03e5e40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  obj: {fileID: 1097662444}
-  entryDirection: 3
-  exitDirection: 3
-  newLocation: 0
-  speed: 0.5
-  delayVar: 0.15
+  Object: {fileID: 1097662444}
+  EntryDirection: 2
+  ExitDirection: 2
+  NewLocation: 0
+  Speed: 1
+  DelayVar: 0.1
 --- !u!114 &1097662447
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8932,7 +8828,7 @@ RectTransform:
   - {fileID: 380892785}
   - {fileID: 1592145320}
   m_Father: {fileID: 1727590820}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -9024,8 +8920,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1390866365}
-        m_TargetAssemblyTypeName: PlayerStats, Assembly-CSharp
-        m_MethodName: SetAmount
+        m_TargetAssemblyTypeName: CharacterStats, Assembly-CSharp
+        m_MethodName: set_Amount
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -9038,13 +8934,13 @@ MonoBehaviour:
       - m_Target: {fileID: 935216530}
         m_TargetAssemblyTypeName: AllocationCheckScript, Assembly-CSharp
         m_MethodName: OnChange
-        m_Mode: 3
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: Happiness
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 164913489}
@@ -9452,8 +9348,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1390866365}
-        m_TargetAssemblyTypeName: PlayerStats, Assembly-CSharp
-        m_MethodName: SetAmount
+        m_TargetAssemblyTypeName: CharacterStats, Assembly-CSharp
+        m_MethodName: set_Amount
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -9466,13 +9362,13 @@ MonoBehaviour:
       - m_Target: {fileID: 935216530}
         m_TargetAssemblyTypeName: AllocationCheckScript, Assembly-CSharp
         m_MethodName: OnChange
-        m_Mode: 3
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 2
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: Focus
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 485030379}
@@ -9618,13 +9514,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be62620a2deb80d4883812d2facf3c67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  obj: {fileID: 1237034216}
-  entryDirection: 2
-  exitDirection: 2
-  newLocation: 0
-  speed: 0.5
-  delayVar: 0.15
-  nextGameObject: {fileID: 953741535}
+  Object: {fileID: 1237034216}
+  EntryDirection: 2
+  ExitDirection: 2
+  NewLocation: 0
+  Speed: 1
+  DelayVar: 0.5
+  NextGameObject: {fileID: 953741535}
 --- !u!1 &1251480370
 GameObject:
   m_ObjectHideFlags: 0
@@ -9818,7 +9714,7 @@ RectTransform:
   - {fileID: 1144063696}
   - {fileID: 733965733}
   m_Father: {fileID: 1727590820}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -10267,7 +10163,7 @@ RectTransform:
   - {fileID: 1632861585}
   - {fileID: 1410099795}
   m_Father: {fileID: 1727590820}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -10326,12 +10222,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce624dec9ff66984f91b2132a03e5e40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  obj: {fileID: 1341585784}
-  entryDirection: 3
-  exitDirection: 3
-  newLocation: 0
-  speed: 0.5
-  delayVar: 0.15
+  Object: {fileID: 1341585784}
+  EntryDirection: 2
+  ExitDirection: 2
+  NewLocation: 0
+  Speed: 1
+  DelayVar: 0.1
 --- !u!114 &1341585787
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10515,8 +10411,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1390866364}
   - component: {fileID: 1390866365}
+  - component: {fileID: 1390866366}
+  - component: {fileID: 1390866367}
   m_Layer: 0
-  m_Name: Player
+  m_Name: UniversalGameManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10549,20 +10447,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 902fcc68f19075949b3089a55a781d06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterName: 
-  maxHealth: 100
-  maxStat: 20
-  statNum: 6
-  gender: 
-  statSum: 0
-  statTable:
-  - baseValue: 0
-  - baseValue: 0
-  - baseValue: 0
-  - baseValue: 0
-  - baseValue: 0
-  - baseValue: 0
-  amount: 0
+  MaxHealth: 100
+  MaxStat: 20
+  StatNum: 6
+--- !u!114 &1390866366
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1390866363}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e8821108a37f4b4eaa120ce61ea9529, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1390866367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1390866363}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8539015c45867b54e9b5bfb452e296b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1402626821
 GameObject:
   m_ObjectHideFlags: 0
@@ -10750,12 +10661,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce624dec9ff66984f91b2132a03e5e40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  obj: {fileID: 1405349151}
-  entryDirection: 3
-  exitDirection: 3
-  newLocation: 0
-  speed: 0.5
-  delayVar: 0.15
+  Object: {fileID: 1405349151}
+  EntryDirection: 2
+  ExitDirection: 2
+  NewLocation: 0
+  Speed: 1
+  DelayVar: 0.1
 --- !u!114 &1405349154
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10879,8 +10790,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1390866365}
-        m_TargetAssemblyTypeName: PlayerStats, Assembly-CSharp
-        m_MethodName: SetAmount
+        m_TargetAssemblyTypeName: CharacterStats, Assembly-CSharp
+        m_MethodName: set_Amount
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -10893,13 +10804,13 @@ MonoBehaviour:
       - m_Target: {fileID: 935216530}
         m_TargetAssemblyTypeName: AllocationCheckScript, Assembly-CSharp
         m_MethodName: OnChange
-        m_Mode: 3
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 3
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: Decisions
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 714560607}
@@ -11054,7 +10965,7 @@ RectTransform:
   - {fileID: 1651280586}
   - {fileID: 1455858610}
   m_Father: {fileID: 1727590820}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -11146,8 +11057,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1390866365}
-        m_TargetAssemblyTypeName: PlayerStats, Assembly-CSharp
-        m_MethodName: SetAmount
+        m_TargetAssemblyTypeName: CharacterStats, Assembly-CSharp
+        m_MethodName: set_Amount
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -11160,13 +11071,13 @@ MonoBehaviour:
       - m_Target: {fileID: 935216530}
         m_TargetAssemblyTypeName: AllocationCheckScript, Assembly-CSharp
         m_MethodName: OnChange
-        m_Mode: 3
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 5
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: Mechanics
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 194535872}
@@ -11633,13 +11544,16 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1509079358}
+  - component: {fileID: 1509079359}
+  - component: {fileID: 1509079361}
+  - component: {fileID: 1509079360}
   m_Layer: 5
-  m_Name: ErrorWrapper
+  m_Name: ErrorContainer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1509079358
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11652,15 +11566,71 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 266720426}
+  - {fileID: 1899142422}
   m_Father: {fileID: 1727590820}
-  m_RootOrder: 2
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 550, y: 300}
-  m_SizeDelta: {x: -1620, y: -980}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: -0.0000019073486, y: -0.000008583069}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1509079359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1509079357}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce624dec9ff66984f91b2132a03e5e40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Object: {fileID: 1509079357}
+  EntryDirection: 4
+  ExitDirection: 4
+  NewLocation: 0
+  Speed: 1
+  DelayVar: 0.1
+--- !u!114 &1509079360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1509079357}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1509079361
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1509079357}
+  m_CullTransparentMesh: 1
 --- !u!1 &1568319429
 GameObject:
   m_ObjectHideFlags: 0
@@ -11827,12 +11797,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce624dec9ff66984f91b2132a03e5e40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  obj: {fileID: 1575165510}
-  entryDirection: 3
-  exitDirection: 3
-  newLocation: 0
-  speed: 0.5
-  delayVar: 0.15
+  Object: {fileID: 1575165510}
+  EntryDirection: 2
+  ExitDirection: 2
+  NewLocation: 0
+  Speed: 1
+  DelayVar: 0.1
 --- !u!224 &1575165512
 RectTransform:
   m_ObjectHideFlags: 0
@@ -12114,8 +12084,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1390866365}
-        m_TargetAssemblyTypeName: PlayerStats, Assembly-CSharp
-        m_MethodName: SetAmount
+        m_TargetAssemblyTypeName: CharacterStats, Assembly-CSharp
+        m_MethodName: set_Amount
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -12128,13 +12098,13 @@ MonoBehaviour:
       - m_Target: {fileID: 935216530}
         m_TargetAssemblyTypeName: AllocationCheckScript, Assembly-CSharp
         m_MethodName: OnChange
-        m_Mode: 3
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 4
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: Positioning
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 1700625732}
@@ -12515,12 +12485,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce624dec9ff66984f91b2132a03e5e40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  obj: {fileID: 1617304582}
-  entryDirection: 3
-  exitDirection: 3
-  newLocation: 0
-  speed: 0.5
-  delayVar: 0.15
+  Object: {fileID: 1617304582}
+  EntryDirection: 2
+  ExitDirection: 2
+  NewLocation: 0
+  Speed: 1
+  DelayVar: 0.1
 --- !u!114 &1617304585
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12779,8 +12749,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1390866365}
-        m_TargetAssemblyTypeName: PlayerStats, Assembly-CSharp
-        m_MethodName: SetAmount
+        m_TargetAssemblyTypeName: CharacterStats, Assembly-CSharp
+        m_MethodName: set_Amount
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -12793,13 +12763,13 @@ MonoBehaviour:
       - m_Target: {fileID: 935216530}
         m_TargetAssemblyTypeName: AllocationCheckScript, Assembly-CSharp
         m_MethodName: OnChange
-        m_Mode: 3
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 3
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: Decisions
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 714560607}
@@ -12937,8 +12907,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1390866365}
-        m_TargetAssemblyTypeName: PlayerStats, Assembly-CSharp
-        m_MethodName: SetAmount
+        m_TargetAssemblyTypeName: CharacterStats, Assembly-CSharp
+        m_MethodName: set_Amount
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -12951,13 +12921,13 @@ MonoBehaviour:
       - m_Target: {fileID: 935216530}
         m_TargetAssemblyTypeName: AllocationCheckScript, Assembly-CSharp
         m_MethodName: OnChange
-        m_Mode: 3
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 5
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: Mechanics
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 194535872}
@@ -13235,12 +13205,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebcce1e5799502f408a778bbc210e003, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  obj: {fileID: 1390866363}
-  charScript: {fileID: 0}
-  key: 4
+  Manager: {fileID: 0}
+  CharScript: {fileID: 0}
+  key: Positioning
   ValueText: {fileID: 856905875}
-  stat:
-    baseValue: 1
 --- !u!1 &1727590819
 GameObject:
   m_ObjectHideFlags: 0
@@ -13273,7 +13241,6 @@ RectTransform:
   m_Children:
   - {fileID: 326771740}
   - {fileID: 935216528}
-  - {fileID: 1509079358}
   - {fileID: 1254727897}
   - {fileID: 1939492983}
   - {fileID: 2085788991}
@@ -13283,6 +13250,7 @@ RectTransform:
   - {fileID: 1855897397}
   - {fileID: 1096761767}
   - {fileID: 783999252}
+  - {fileID: 1509079358}
   m_Father: {fileID: 2096254193}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -13303,13 +13271,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be62620a2deb80d4883812d2facf3c67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  obj: {fileID: 1727590819}
-  entryDirection: 2
-  exitDirection: 2
-  newLocation: 0
-  speed: 0.5
-  delayVar: 0.15
-  nextGameObject: {fileID: 1059919278}
+  Object: {fileID: 1727590819}
+  EntryDirection: 4
+  ExitDirection: 3
+  NewLocation: 0
+  Speed: 1
+  DelayVar: 0.5
+  NextGameObject: {fileID: 1059919278}
 --- !u!114 &1727590822
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13322,8 +13290,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cee091cbd2220174fa9c076298f1e268, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  checkObj: {fileID: 935216527}
-  failPopUpObj: {fileID: 783999251}
+  CheckObject: {fileID: 935216527}
+  FailPopUpObject: {fileID: 783999251}
 --- !u!1 &1727888132
 GameObject:
   m_ObjectHideFlags: 0
@@ -14310,7 +14278,7 @@ RectTransform:
   m_Children:
   - {fileID: 837000934}
   m_Father: {fileID: 1727590820}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -14329,13 +14297,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be62620a2deb80d4883812d2facf3c67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  obj: {fileID: 1727590819}
-  entryDirection: 2
-  exitDirection: 2
-  newLocation: 0
-  speed: 0.5
-  delayVar: 0.15
-  nextGameObject: {fileID: 2031578524}
+  Object: {fileID: 1727590819}
+  EntryDirection: 4
+  ExitDirection: 3
+  NewLocation: 0
+  Speed: 1
+  DelayVar: 0.1
+  NextGameObject: {fileID: 2031578524}
 --- !u!114 &1855897399
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14681,6 +14649,83 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1891376358}
+  m_CullTransparentMesh: 1
+--- !u!1 &1899142421
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1899142422}
+  - component: {fileID: 1899142424}
+  - component: {fileID: 1899142423}
+  m_Layer: 5
+  m_Name: ErrorBG
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1899142422
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1899142421}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 734913406}
+  m_Father: {fileID: 1509079358}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 640, y: 300}
+  m_SizeDelta: {x: 400, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1899142423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1899142421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1899142424
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1899142421}
   m_CullTransparentMesh: 1
 --- !u!1 &1901626770
 GameObject:
@@ -15047,7 +15092,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: male
+          m_StringArgument: Male
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 2031578526}
@@ -15135,7 +15180,7 @@ RectTransform:
   - {fileID: 2064629217}
   - {fileID: 575550943}
   m_Father: {fileID: 1727590820}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -15815,13 +15860,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be62620a2deb80d4883812d2facf3c67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  obj: {fileID: 2031578524}
-  entryDirection: 2
-  exitDirection: 2
-  newLocation: 0
-  speed: 0.5
-  delayVar: 0.15
-  nextGameObject: {fileID: 1727590819}
+  Object: {fileID: 2031578524}
+  EntryDirection: 4
+  ExitDirection: 3
+  NewLocation: 0
+  Speed: 1
+  DelayVar: 0.1
+  NextGameObject: {fileID: 1727590819}
 --- !u!1 &2039808244
 GameObject:
   m_ObjectHideFlags: 0
@@ -15834,7 +15879,7 @@ GameObject:
   - component: {fileID: 2039808247}
   - component: {fileID: 2039808246}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: DisplayText (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16042,8 +16087,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1390866365}
-        m_TargetAssemblyTypeName: PlayerStats, Assembly-CSharp
-        m_MethodName: SetAmount
+        m_TargetAssemblyTypeName: CharacterStats, Assembly-CSharp
+        m_MethodName: set_Amount
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -16056,13 +16101,13 @@ MonoBehaviour:
       - m_Target: {fileID: 935216530}
         m_TargetAssemblyTypeName: AllocationCheckScript, Assembly-CSharp
         m_MethodName: OnChange
-        m_Mode: 3
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 1
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: Aggression
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 1020713404}
@@ -16711,7 +16756,7 @@ RectTransform:
   - {fileID: 1232559705}
   - {fileID: 82553688}
   m_Father: {fileID: 1727590820}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
