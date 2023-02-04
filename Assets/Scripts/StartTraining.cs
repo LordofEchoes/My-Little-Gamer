@@ -6,7 +6,7 @@ using TMPro;
 public class StartTraining : MonoBehaviour
 {
     [SerializeField] GameObject Manager;
-    private PlayerStats Player;
+    private CharacterStats Player;
     public int TotalStatContainer = 6;
     [SerializeField] GameObject TrainingPointsObject;
     [SerializeField] TrainingAllocation TrainingPointsScript;
@@ -16,10 +16,33 @@ public class StartTraining : MonoBehaviour
 
     void Start()
     {
-        Manager = GameObject.Find("UniversalGameManager");
-        Player = Manager.GetComponent<PlayerStats>();
-        DS = Manager.GetComponent<DateSystem>();
-        TrainingPointsScript = TrainingPointsObject.GetComponent<TrainingAllocation>();
+        try
+        {
+            Manager = GameObject.Find("UniversalGameManager");
+            Player = Manager.GetComponent<GameManager>().GetPlayer();
+        }
+        catch(System.NullReferenceException err)
+        {
+            Player = new CharacterStats();
+            Debug.Log("StartTraining Player bugged: " + err.Message);
+        }
+        try
+        {
+            DS = Manager.GetComponent<GameManager>().GetDateSystem();
+        }
+        catch(System.NullReferenceException err)
+        {
+            DS = new DateSystem();
+            Debug.Log("StartTraining DateSystem bugged: " + err.Message);
+        }
+        try
+        {
+            TrainingPointsScript = TrainingPointsObject.GetComponent<TrainingAllocation>();
+        }
+        catch(System.NullReferenceException err)
+        {
+            Debug.Log("StartTraining Training bugged(no stopgap): " + err.Message);
+        }
     }
 
     void OnDisable()

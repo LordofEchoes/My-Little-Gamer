@@ -11,8 +11,17 @@ public class OpenTrainingUI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Manager = GameObject.Find("UniversalGameManager");
-        DS = Manager.GetComponent<DateSystem>();
+        try
+        {
+            Manager = GameObject.Find("UniversalGameManager");
+            DS = Manager.GetComponent<GameManager>().GetDateSystem();
+        }
+        catch (System.NullReferenceException err)
+        {
+            DS = new DateSystem();
+            Debug.Log("OpenTrainingUi DateSystem bugged: " + err.Message);
+        }
+        
     }
 
     void Update()

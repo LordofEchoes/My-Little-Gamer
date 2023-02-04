@@ -11,15 +11,23 @@ public class DateDisplay : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Manager = GameObject.Find("UniversalGameManager");
-        DS = Manager.GetComponent<DateSystem>();
+        try
+        {
+            Manager = GameObject.Find("UniversalGameManager");
+            DS = Manager.GetComponent<GameManager>().GetDateSystem();
+        }
+        catch(System.NullReferenceException err)
+        {
+            DS = new DateSystem();
+            Debug.Log("DateDisplay Date System bugged: " + err.Message);
+        }
         OnChange();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        DisplayText.text = DS.DateAsString();
     }
 
     void OnChange()

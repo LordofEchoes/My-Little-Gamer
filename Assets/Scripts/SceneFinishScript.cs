@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class SceneFinishScript : MonoBehaviour
 {
     // public GameObject Player;
-    public string NextSceneName;
+    public int NextSceneIndex;
     /*
     Simple reusable script:
     Moves the Scene to the next one
@@ -14,7 +14,7 @@ public class SceneFinishScript : MonoBehaviour
     public void NextScene()
     {
         // int currentSceneBuildIndex = SceneManager.GetActiveScene().buildIndex;
-        SceneManager.LoadScene(NextSceneName);
+        SceneManager.LoadScene(NextSceneIndex);
         // SceneManager.MoveGameObjectToScene(Player, SceneManager.GetSceneByName(NextSceneName));
     }
 

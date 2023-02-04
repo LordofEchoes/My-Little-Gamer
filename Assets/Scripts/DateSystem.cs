@@ -2,15 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DateSystem : MonoBehaviour
+[System.Serializable]
+public class DateSystem
 {
     System.DateTime DT;
     DayCycle DayCycle;
     static Dictionary<int, string> MonthName;
 
-    void Awake()
+    //constructor default
+    public DateSystem()
     {
-        DT = new System.DateTime(2022,11,1);
+        DT = new System.DateTime(2023,2,4);
         DayCycle = new DayCycle();
         MonthName = new Dictionary<int, string>();
         MonthName.Add(1,"Jan");
@@ -25,12 +27,6 @@ public class DateSystem : MonoBehaviour
         MonthName.Add(10,"Oct");
         MonthName.Add(11,"Nov");
         MonthName.Add(12,"Dec");
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
     }
 
     public int Year{
@@ -63,12 +59,26 @@ public class DateSystem : MonoBehaviour
 
     public void ProgressDay()
     {
-        if (DayCycle.CheckIncrement())
+        if(DayCycle.CheckIncrement())
         {
             DT = DT.AddDays(1);
         }
         DayCycle.IncrementCycle();
     }   
+
+    public void ProgressWeek()
+    {
+        if (CheckWeek())
+        {
+            DT = DT.AddDays(6);
+        }
+    }
+
+    public bool CheckWeek()
+    {
+        Debug.Log($"DayOfTheWeek: {(int)DT.DayOfWeek}");
+        return (int)DT.DayOfWeek == 0 ? true : false;
+    }
 
     public bool CheckNextDay()
     {

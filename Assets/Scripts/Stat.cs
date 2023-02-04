@@ -13,6 +13,8 @@ public class Stat
     public int Experience{get; set;}
     private int ExperienceLimit = 1000;
 
+    public static implicit operator int(Stat s) => s.Value;
+    public static implicit operator Stat(int i) => new Stat(i);
 
     // default constructor for Stat Class(default is 1)
     public Stat()
