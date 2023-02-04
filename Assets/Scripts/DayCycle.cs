@@ -5,12 +5,11 @@ using UnityEngine;
 public class DayCycle
 {
     public Dictionary<int,string> Cycles;
-    public int CycleLimit{get;set;}
+    private static int CycleLimit = 1;
     public int CurrentCycle{get;set;}
 
     public DayCycle()
     {
-        CycleLimit = 2;
         Cycles = new Dictionary<int,string>();
         Cycles.Add(1,"Morning");
         Cycles.Add(2,"Evening");

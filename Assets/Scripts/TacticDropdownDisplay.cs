@@ -8,25 +8,27 @@ public class TacticDropdownDisplay : MonoBehaviour
 {
     // This is the Player Stats
     [SerializeField] GameObject CharacterObj = null;
-    [SerializeField] CharacterStats CharacterScript;
+    [SerializeField] CharacterStats Character;
     public TextMeshProUGUI ValueText;
     // Start is called before the first frame update
     void Start()
     {
-        if (CharacterObj != null)
-        {
-            CharacterScript = CharacterObj.GetComponent<CharacterStats>();
-        }
-        else
+        try
         {
             CharacterObj = GameObject.Find("UniversalGameManager");
-            CharacterScript = CharacterObj.GetComponent<CharacterStats>();
+            Character = CharacterObj.GetComponent<GameManager>().GetPlayer();
+        }
+        catch(System.NullReferenceException err)
+        {
+            Character = new CharacterStats();
+            Character.BuildNew();
+            Debug.Log("TacticDropdown Player bugged: " + err.Message);
         }
         
     }
     // Occurs when change.
     public void OnChange()
     {
-        ValueText.text = CharacterScript.Name;
+        ValueText.text = Character.Name;
     }
 }

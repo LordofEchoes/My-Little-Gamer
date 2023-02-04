@@ -6,35 +6,36 @@ using TMPro;
 public class ProficiencyDisplayScript : MonoBehaviour
 {
     [SerializeField] GameObject CharacterObj = null;
-    [SerializeField] CharacterStats CharacterScript;
-    [SerializeField] string PhaseName = "";
+    [SerializeField] CharacterStats Character;
+    [SerializeField] int PhaseInt;
     private string TacticName = "";
     public TextMeshProUGUI DisplayText;
 
     // On start of the display script
     public void OnEnable()
     {
-        if (CharacterObj != null)
-        {
-            CharacterScript = CharacterObj.GetComponent<CharacterStats>();
-        }
-        else
+        try
         {
             CharacterObj = GameObject.Find("UniversalGameManager");
-            CharacterScript = CharacterObj.GetComponent<CharacterStats>();
+            Character = CharacterObj.GetComponent<GameManager>().GetPlayer();
         }
-        TacticName = CharacterScript.PhaseTable[PhaseName].CurrentTactic;
+        catch(System.NullReferenceException err)
+        {
+            Character = new CharacterStats();
+            Debug.Log("ProficiencyDisplay Player bugged: " + err.Message);
+        }
+        TacticName = Character.PhaseTable[PhaseInt].CurrentTactic;
         OnChange();
     }
     // Update proficiency when the dropdown is changed
     public void UpdateProficiency()
     {
-        TacticName = CharacterScript.PhaseTable[PhaseName].CurrentTactic;
+        TacticName = Character.PhaseTable[PhaseInt].CurrentTactic;
         OnChange();
     }
     public void OnChange()
     {
-        DisplayText.text = CharacterScript.PhaseTable[PhaseName].TacticTable[TacticName].Proficiency.ToString() + "%";
+        DisplayText.text = Character.PhaseTable[PhaseInt][TacticName].Proficiency.ToString() + "%";
     }
 
 }

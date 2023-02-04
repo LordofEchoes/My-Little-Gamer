@@ -64,9 +64,11 @@ public class PopUpScript : MonoBehaviour
                 Object.transform.LeanMoveLocalX(Screen.width,Speed).setEaseInExpo().setOnComplete(OnComplete);
                 break;
         }
-        
+        // OnComplete not necessary here
+        // OnComplete();
     }
-
+    
+    // OnComplete is a DoTween Override that occurs when the DoTween Animation finishes
     public virtual void OnComplete()
     {
         Object.SetActive(false);

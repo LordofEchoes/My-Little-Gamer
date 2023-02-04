@@ -9,7 +9,7 @@ public class AllocationCheckScript : MonoBehaviour
     [SerializeField] GameObject PlayerObj;
     [SerializeField] GameObject ErrorDisplayObject;
     private AllocationDisplayScript AlloScript;
-    private CharacterStats PlayerScript;
+    private CharacterStats Player;
     public int PointsToAllocate;
     public int AvailiablePoints;
     public TextMeshProUGUI ValueText;
@@ -25,7 +25,7 @@ public class AllocationCheckScript : MonoBehaviour
     void Start()
     {
         AlloScript = AlloObject.GetComponent<AllocationDisplayScript>();
-        PlayerScript = PlayerObj.GetComponent<CharacterStats>();
+        Player = PlayerObj.GetComponent<GameManager>().GetPlayer();
     }
     
     // Checks the allocation scripts and performs checks to see if there are enough allocation points
@@ -33,29 +33,29 @@ public class AllocationCheckScript : MonoBehaviour
     // uses get Player Stats GetAmount() to get the amount that the player script is changing by
     public void OnChange(string StatName)
     {
-        if (AvailiablePoints - PlayerScript.Amount > PointsToAllocate)
+        if (AvailiablePoints - Player.Amount > PointsToAllocate)
         {
             ValueText.text = ("Cannot have more than " + PointsToAllocate.ToString() + " availiable points.");
             ErrorDisplayObject.SetActive(true);
             StartCoroutine(WaitForError());
             return;
         }
-        else if (AvailiablePoints - PlayerScript.Amount  < 0)
+        else if (AvailiablePoints - Player.Amount  < 0)
         {
             ValueText.text = ("Cannot have less than 0 availiable points.");
             ErrorDisplayObject.SetActive(true);
             StartCoroutine(WaitForError());
             return;
         }
-        else if (PlayerScript.StatTable[StatName].Value + PlayerScript.Amount < 1)
+        else if (Player.StatTable[StatName].Value + Player.Amount < 1)
         {
             ValueText.text = ("Cannot have less than 1 of a player stat.");
             ErrorDisplayObject.SetActive(true);
             StartCoroutine(WaitForError());
             return;
         }
-        PlayerScript.ModStat(StatName, PlayerScript.Amount);
-        AvailiablePoints -= PlayerScript.Amount;
+        Player.ModStat(StatName, Player.Amount);
+        AvailiablePoints -= Player.Amount;
         AlloScript.OnChange();
     }
 

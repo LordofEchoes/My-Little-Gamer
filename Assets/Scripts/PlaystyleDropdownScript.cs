@@ -7,24 +7,26 @@ using TMPro;
 public class PlaystyleDropdownScript : MonoBehaviour
 {
     private GameObject CharacterObj = null;
-    private CharacterStats CharacterScript;
-    public string PhaseName = "";
+    private CharacterStats Character;
+    public int PhaseInt;
     public GameObject DropDownObject = null;
     private TMP_Dropdown m_Dropdown;
     // Start is called before the first frame update
     void Start()
     {
-        if (CharacterObj != null)
-        {
-            CharacterScript = CharacterObj.GetComponent<CharacterStats>();
-        }
-        else
+        try
         {
             CharacterObj = GameObject.Find("UniversalGameManager");
-            CharacterScript = CharacterObj.GetComponent<CharacterStats>();
+            Character = CharacterObj.GetComponent<GameManager>().GetPlayer();
         }
+        catch(System.NullReferenceException err)
+        {
+            Character = new CharacterStats();
+            Debug.Log("PlaystyleDropDown Player bugged: " + err.Message);
+        }
+        
         m_Dropdown = DropDownObject.GetComponent<TMP_Dropdown>();
-        string NewTactic = CharacterScript.PhaseTable[PhaseName].CurrentTactic;
+        string NewTactic = Character.PhaseTable[PhaseInt].CurrentTactic;
         if (NewTactic == "Farm"){
             m_Dropdown.value = 0;
         }
@@ -39,7 +41,7 @@ public class PlaystyleDropdownScript : MonoBehaviour
 
     public void ChangeCurrentTactic()
     {
-        CharacterScript.PhaseTable[PhaseName].CurrentTactic = m_Dropdown.captionText.text;
-        Debug.Log("Current Tactic is: "+ CharacterScript.PhaseTable[PhaseName].CurrentTactic);
+        Character.PhaseTable[PhaseInt].CurrentTactic = m_Dropdown.captionText.text;
+        Debug.Log("Current Tactic is: "+ Character.PhaseTable[PhaseInt].CurrentTactic);
     }
 }

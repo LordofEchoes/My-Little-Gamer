@@ -2,13 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// Phase uses a Dictionary but should act like one too.
 [System.Serializable]
 public class Phase
 {
-    public Dictionary<string,Tactic> TacticTable;
+    private Dictionary<string,Tactic> TacticTable;
     public int Count {get;}
     public string Name {get; set;}
     public string CurrentTactic{get; set;}
+
+
     // default constructor
     public Phase()
     {
@@ -41,18 +44,28 @@ public class Phase
         Count = TacticTable.Count;
         Name = PhaseName;
     }
+
+    public Tactic this[string TacticName]
+    {
+        get{return TacticTable[TacticName];}
+        set{TacticTable[TacticName] = value;}
+    }
+
     public void ChangeTactic(string NewTactic)
     {
         CurrentTactic = NewTactic;
     }
+
     // change proficiency based on specific tactic
     public void ChangeTacticProficiency(string tacticName, int amount)
     {
         TacticTable[tacticName].ChangeProficiency(amount);
     }
 
-    public int GetTacticPosition(int Roll, Dictionary<string, Stat> StatTable)
+    public int GetTacticPosition(Dictionary<string, Stat> StatTable)
     {
+        System.Random Generator = new System.Random();
+        int Roll = Generator.Next(1,101);
         // that player looks for position 1 = 70 + Positioning Modifier. 
         if(Roll <= 70 + StatTable["Positioning"].Value)
         {

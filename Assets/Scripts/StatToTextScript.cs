@@ -7,7 +7,7 @@ public class StatToTextScript : MonoBehaviour
 {
 
     [SerializeField] GameObject Manager = null;
-    [SerializeField] CharacterStats CharScript;
+    [SerializeField] CharacterStats Character;
     public string key;
     public TextMeshProUGUI ValueText;
     [SerializeField] Stat _stat;
@@ -15,14 +15,16 @@ public class StatToTextScript : MonoBehaviour
     // Do this at the Start after everyting is Awake
     void Start()
     {
-        if (Manager != null)
-        {
-            CharScript = Manager.GetComponent<CharacterStats>();
-        }
-        else
+        try
         {
             Manager = GameObject.Find("UniversalGameManager");
-            CharScript = Manager.GetComponent<CharacterStats>();
+            Character = Manager.GetComponent<GameManager>().GetPlayer();
+        }
+        catch(System.NullReferenceException err)
+        {
+            Character = new CharacterStats();
+            Character.BuildNew();
+            Debug.Log("StatToText Player bugged: " + err.Message);
         }
         OnChange();
     }
@@ -31,12 +33,12 @@ public class StatToTextScript : MonoBehaviour
     {
         if (key == "Gender")
         {
-            ValueText.text = CharScript.Gender;
+            ValueText.text = Character.Gender;
             return;
         }
-        else if(CharScript.StatTable.ContainsKey(key))
+        else if(Character.StatTable.ContainsKey(key))
         {
-            _stat = CharScript.StatTable[key];
+            _stat = Character.StatTable[key];
         }
         else
         {
