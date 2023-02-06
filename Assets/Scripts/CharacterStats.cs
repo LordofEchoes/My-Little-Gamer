@@ -268,7 +268,7 @@ public class CharacterStats
         System.Random Generator = new System.Random();
         int DecisionRoll = Generator.Next(1,101);
         int distance = Distance(EnemyPosition, CurrentPosition, CurrentPhase);
-        if(DecisionRoll + StatTable["Decisions"].Value >= 30)
+        if(DecisionRoll + StatTable["Decisions"].Value >= 25)
         {
             switch(distance)
             {
