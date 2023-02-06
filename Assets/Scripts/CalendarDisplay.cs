@@ -28,7 +28,7 @@ public class CalendarDisplay : MonoBehaviour
     {
         Debug.Log("Calendar Display Started");
         Manager = GameObject.Find("UniversalGameManager");
-        DS = Manager.GetComponent<DateSystem>();
+        DS = Manager.GetComponent<GameManager>().GetDateSystem();
         UpdateCalendar();
         DisplayMonthYear();
     }

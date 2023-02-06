@@ -67,7 +67,7 @@ public class Phase
         System.Random Generator = new System.Random();
         int Roll = Generator.Next(1,101);
         // that player looks for position 1 = 70 + Positioning Modifier. 
-        if(Roll <= 70 + StatTable["Positioning"].Value)
+        if(Roll + StatTable["Positioning"].Value >= 40)
         {
             switch(CurrentTactic)
             {
@@ -79,7 +79,7 @@ public class Phase
                 return 3;
             }
         }
-        else if (Roll <= 70 + StatTable["Positioning"].Value*2)
+        else if (Roll + StatTable["Positioning"].Value > 20)
         {
             switch(CurrentTactic)
             {

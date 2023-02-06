@@ -24496,7 +24496,7 @@ MonoBehaviour:
     PhaseTable: []
     TowerTable: 6400000064000000c8000000
     CurrentTower: 0
-  key: Mechanic
+  key: Mechanics
   ValueText: {fileID: 1001638204}
 --- !u!1 &1630939446
 GameObject:
