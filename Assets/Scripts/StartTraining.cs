@@ -51,7 +51,7 @@ public class StartTraining : MonoBehaviour
         {
             StatText[i].text = "+0";
         }
-        Debug.Log("Stats have been disabled to zero.");
+        Debug.Log("Stats Display have been disabled to zero.");
         DisplayGameObject.SetActive(false);
         Debug.Log("Training Stats display have been deactivated");
     }

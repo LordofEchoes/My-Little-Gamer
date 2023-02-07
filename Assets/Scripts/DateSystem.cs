@@ -57,6 +57,11 @@ public class DateSystem
         return DayCycle.ToString();
     }
 
+    public int GetCycle()
+    {
+        return DayCycle.GetCycle();
+    }
+
     public void ProgressDay()
     {
         if(DayCycle.CheckIncrement())
@@ -74,10 +79,15 @@ public class DateSystem
         }
     }
 
+    public int GetDayOfWeek()
+    {
+        return (int)DT.DayOfWeek;
+    }
+
     public bool CheckWeek()
     {
         Debug.Log($"DayOfTheWeek: {(int)DT.DayOfWeek}");
-        return (int)DT.DayOfWeek == 0 ? true : false;
+        return (int)DT.DayOfWeek == 0 && DayCycle.CheckIncrement()? true : false;
     }
 
     public bool CheckNextDay()
@@ -86,8 +96,4 @@ public class DateSystem
 
     }
 
-    public bool CanTrain()
-    {
-        return DayCycle.CurrentCycle == 1? true : false;
-    }
 }

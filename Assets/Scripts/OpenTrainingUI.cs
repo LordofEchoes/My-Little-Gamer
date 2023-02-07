@@ -26,7 +26,8 @@ public class OpenTrainingUI : MonoBehaviour
 
     void Update()
     {
-        if (DS.CanTrain())
+        // can train if cycle is morning
+        if (DS.GetCycle() == 0 && DS.GetDayOfWeek() != 0)
         {
             TrainingButton.interactable = true;
         }

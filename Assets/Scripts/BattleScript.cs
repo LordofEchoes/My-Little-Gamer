@@ -245,6 +245,7 @@ public class BattleScript : MonoBehaviour
                         {
                             GameOver = true;
                             Enemy.CurrentTower = 2;
+                            Winner = 0;
                         }
                         // Update CurrentPhase to match Player or Enemy Tower Phase
                         CurrentPhase = System.Math.Max(Player.CurrentTower, Enemy.CurrentTower);
@@ -310,6 +311,7 @@ public class BattleScript : MonoBehaviour
                                 {
                                     GameOver = true;
                                     Player.CurrentTower = 2;
+                                    Winner = 1;
                                 }
                                 // Update CurrentPhase to match Player or Enemy Tower Phase
                                 CurrentPhase = System.Math.Max(Player.CurrentTower, Enemy.CurrentTower);
@@ -371,6 +373,7 @@ public class BattleScript : MonoBehaviour
                         {
                             GameOver = true;
                             Player.CurrentTower = 2;
+                            Winner = 1;
                         }
                         // Update CurrentPhase to match Player or Enemy Tower Phase
                         CurrentPhase = System.Math.Max(Player.CurrentTower, Enemy.CurrentTower);
@@ -435,6 +438,7 @@ public class BattleScript : MonoBehaviour
                                 {
                                     GameOver = true;
                                     Enemy.CurrentTower = 2;
+                                    Winner = 0;
                                 }
                                 // Update CurrentPhase to match Player or Enemy Tower Phase
                                 CurrentPhase = System.Math.Max(Player.CurrentTower, Enemy.CurrentTower);
@@ -460,7 +464,6 @@ public class BattleScript : MonoBehaviour
         // Game Over, show post match thread, close Dialog and bring up BattleOverScene.
         try 
         {
-            Winner = Enemy.CurrentTower > 2 ? 0 : 1;
             // close current screen
             gameObject.GetComponent<TransitionTextScript>().CloseDialog();
             // brings up winner screen
