@@ -188,6 +188,28 @@ public class CharacterStats
         }
     }
 
+    //returns string of highest value stat
+    public string GetHighestStat()
+    {
+        int maxValue = 0;
+        string statName = "";
+        foreach(KeyValuePair<string, Stat> entry in StatTable)
+        {
+            if (entry.Value.Value > maxValue)
+            {
+                statName = entry.Key;
+                maxValue = entry.Value.Value;
+            }
+        }
+        return statName;
+    }
+
+    //return datetime, overwritten 
+    public virtual System.DateTime GetDate()
+    {
+        return new System.DateTime(2023,8,4);
+    }
+    
     public void TrainStat(string StatName, int Experience)
     {
         StatTable[StatName].ChangeExperience(Experience);

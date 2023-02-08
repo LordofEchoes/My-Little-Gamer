@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class NameDisplayScript : MonoBehaviour
+public class DisplayName : MonoBehaviour
 {
 
     [SerializeField] GameObject NameObject = null;
