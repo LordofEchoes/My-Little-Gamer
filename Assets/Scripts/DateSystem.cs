@@ -62,6 +62,19 @@ public class DateSystem
         return DayCycle.GetCycle();
     }
 
+    public void ProgressTime()
+    {
+        if(CheckWeek())
+        {
+            ProgressWeek();
+        }
+        else
+        {
+            ProgressDay();
+        }
+    }
+
+    // increment time by one day 
     public void ProgressDay()
     {
         if(DayCycle.CheckIncrement())
@@ -71,29 +84,37 @@ public class DateSystem
         DayCycle.IncrementCycle();
     }   
 
+    // increment time by 6 days to the next week.
     public void ProgressWeek()
     {
-        if (CheckWeek())
+        if(DayCycle.CheckIncrement())
         {
-            DT = DT.AddDays(6);
+            DT = DT.AddDays(5);
         }
+        DayCycle.IncrementCycle();
     }
 
+    // return integer value of day of week
     public int GetDayOfWeek()
     {
         return (int)DT.DayOfWeek;
     }
 
+    public bool CheckDay()
+    {
+        return DayCycle.CheckIncrement();
+    }
+
+    //check if its time to advance day of week
     public bool CheckWeek()
     {
-        Debug.Log($"DayOfTheWeek: {(int)DT.DayOfWeek}");
-        return (int)DT.DayOfWeek == 0 && DayCycle.CheckIncrement()? true : false;
+        return (int)DT.DayOfWeek == 0 && DayCycle.CheckIncrement();
     }
 
-    public bool CheckNextDay()
+    //check if its sunday and its time to battle
+    public bool CheckBattle()
     {
-        return DayCycle.CheckIncrement() ? true : false;
-
+        Debug.Log($"DayOfTheWeek: {(int)DT.DayOfWeek}");
+        return (int)DT.DayOfWeek == 0 && DayCycle.GetCycle() == 0? true : false;
     }
-
 }

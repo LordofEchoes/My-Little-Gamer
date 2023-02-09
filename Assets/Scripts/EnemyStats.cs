@@ -12,7 +12,7 @@ public class EnemyStats : CharacterStats
         DateEncounter = date;
         WeekEncounter = week;
         // double check week and return Debug Message if wrong
-        if ((date - new System.DateTime(2023,8,4)).Days/7+1 == WeekEncounter)
+        if ((date - new System.DateTime(2023,8,4)).Days/7+1 != WeekEncounter)
         {
             Debug.Log($"EnemyStat has the wrong week for the date that was entered. System entered {week}. Calculated result should be {(date - new System.DateTime(2023,8,4)).Days/7+1}");
         }

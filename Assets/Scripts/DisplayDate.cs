@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class DateDisplay : MonoBehaviour
+public class DisplayDate : MonoBehaviour
 {
     [SerializeField] GameObject Manager;
     [SerializeField] DateSystem DS;
