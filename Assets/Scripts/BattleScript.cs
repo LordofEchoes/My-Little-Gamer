@@ -332,7 +332,7 @@ public class BattleScript : MonoBehaviour
                     EnemyDamage = Enemy.Engage(PlayerPosition, EnemyPosition, CurrentPhase);
                     break;
                     case 2:
-                    SendMessageToChat(Player.Name + " chooses to " + (DecisionText)EnemyDecision + ".");
+                    SendMessageToChat(Enemy.Name + " chooses to " + (DecisionText)EnemyDecision + ".");
                     EnemyDamage = Enemy.Poke(PlayerPosition, EnemyPosition, CurrentPhase);
                     break;
                     case 1:
@@ -352,7 +352,6 @@ public class BattleScript : MonoBehaviour
                         yield return new WaitForSeconds(TimeDelay);
                         PlayerTowerPoked(EnemyDamage);
                     }
-                    
                     yield return new WaitForSeconds(TimeDelay);
                     PlayerTakeDamage(EnemyDamage);
                 }
@@ -461,7 +460,9 @@ public class BattleScript : MonoBehaviour
                 EnemyStatusUpdate();
             }
         }
-        // Game Over, show post match thread, close Dialog and bring up BattleOverScene.
+        // Game Over, show post match thread, close Dialog and bring up BattleOverScene. Reset Player's
+        Player.SetBattle();
+        Enemy.SetBattle();
         try 
         {
             // close current screen
