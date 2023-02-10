@@ -13,7 +13,9 @@ public class StartTraining : MonoBehaviour
     [SerializeField] DateSystem DS;
     [SerializeField] GameObject DisplayGameObject;
     [SerializeField] TextMeshProUGUI[] StatText;
-
+    [SerializeField] int TutorialOrActual;
+    [SerializeField] GameObject TrainingUI1;
+    [SerializeField] GameObject TrainingUI2;
     void Start()
     {
         try
@@ -56,8 +58,34 @@ public class StartTraining : MonoBehaviour
         Debug.Log("Training Stats display have been deactivated");
     }
 
+    // Determines which training to use based on int argument.
+    public void Train()
+    {
+        // if statement to check for errors.
+        if(TrainingPointsScript.PointsSpent())
+        {
+            if (TutorialOrActual == 0)
+            {
+                TrainActual();
+            }
+            else
+            {
+                TrainTutorial();
+                try
+                {
+                    TrainingUI1.SetActive(false);
+                    TrainingUI2.SetActive(true);
+                }
+                catch(System.NullReferenceException err)
+                {
+                    Debug.Log("StartTraining Tutorial Ui Bugged: " + err.Message);
+                }
+            }
+        }
+    }
+
     // Tutorial Training so does not give player the stats
-    public void TrainTutorial()
+    private void TrainTutorial()
     {
         int[] StatDifference = new int[6];
         // train Mechanics: trains solely on Mechanics(80%) and Aggression(20%)
@@ -86,7 +114,7 @@ public class StartTraining : MonoBehaviour
     }
 
     //training that gives player actual stats.
-    public void Train()
+    private void TrainActual()
     {
         /*
         Experience: random number between 50 and 100. half is guaranteed. happiness modifier gives ratio of modifier over max happiness.

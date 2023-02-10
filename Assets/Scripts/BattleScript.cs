@@ -113,44 +113,25 @@ public class BattleScript : MonoBehaviour
         EnemyTowerStatusObject.transform.GetChild(3).GetComponent<HealthBar>().SetMaxHealth(Player.TowerTable[1]);
         EnemyTowerStatusObject.transform.GetChild(5).GetComponent<HealthBar>().SetMaxHealth(Player.TowerTable[2]);
     }
-    // Updates the Status of the Player
-    public void PlayerStatusUpdate()
+
+    // Updates the Status of a Character
+    public void StatusUpdate(CharacterStats Character, GameObject StatusObject, GameObject TowerStatusObject)
     {
         try
         {
-            PlayerStatusObject.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = Player.CurrentHealth.ToString();
-            PlayerStatusObject.transform.GetChild(5).GetComponent<TextMeshProUGUI>().text = Player.Gold.ToString();
-            PlayerStatusObject.transform.GetChild(8).GetComponent<TextMeshProUGUI>().text = Player.Gold.GetCreepScore().ToString();
-            PlayerStatusObject.transform.GetChild(11).GetComponent<TextMeshProUGUI>().text = Player.Kills.ToString();
-            PlayerStatusObject.transform.GetChild(14).GetComponent<TextMeshProUGUI>().text = Player.Deaths.ToString();
-            PlayerStatusObject.transform.GetChild(17).GetComponent<TextMeshProUGUI>().text = Player.PhaseTable[CurrentPhase].CurrentTactic;
-            PlayerTowerStatusObject.transform.GetChild(1).GetComponent<HealthBar>().SetHealth(Player.TowerTable[0]);
-            PlayerTowerStatusObject.transform.GetChild(3).GetComponent<HealthBar>().SetHealth(Player.TowerTable[1]);
-            PlayerTowerStatusObject.transform.GetChild(5).GetComponent<HealthBar>().SetHealth(Player.TowerTable[2]);
+            StatusObject.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = Character.CurrentHealth.ToString();
+            StatusObject.transform.GetChild(5).GetComponent<TextMeshProUGUI>().text = Character.Gold.ToString();
+            StatusObject.transform.GetChild(8).GetComponent<TextMeshProUGUI>().text = Character.Gold.GetCreepScore().ToString();
+            StatusObject.transform.GetChild(11).GetComponent<TextMeshProUGUI>().text = Character.Kills.ToString();
+            StatusObject.transform.GetChild(14).GetComponent<TextMeshProUGUI>().text = Character.Deaths.ToString();
+            StatusObject.transform.GetChild(17).GetComponent<TextMeshProUGUI>().text = Character.PhaseTable[CurrentPhase].CurrentTactic;
+            TowerStatusObject.transform.GetChild(1).GetComponent<HealthBar>().SetHealth(Character.TowerTable[0]);
+            TowerStatusObject.transform.GetChild(3).GetComponent<HealthBar>().SetHealth(Character.TowerTable[1]);
+            TowerStatusObject.transform.GetChild(5).GetComponent<HealthBar>().SetHealth(Character.TowerTable[2]);
         }
         catch(System.NullReferenceException err)
         {
-            Debug.Log("Player Status bugged and cannot be updated: " + err.Message);
-        }
-    }
-    // Updates the Status of the Enemy
-    public void EnemyStatusUpdate()
-    {
-        try
-        {
-            EnemyStatusObject.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = Enemy.CurrentHealth.ToString();
-            EnemyStatusObject.transform.GetChild(5).GetComponent<TextMeshProUGUI>().text = Enemy.Gold.ToString();
-            EnemyStatusObject.transform.GetChild(8).GetComponent<TextMeshProUGUI>().text = Enemy.Gold.GetCreepScore().ToString();
-            EnemyStatusObject.transform.GetChild(11).GetComponent<TextMeshProUGUI>().text = Enemy.Kills.ToString();
-            EnemyStatusObject.transform.GetChild(14).GetComponent<TextMeshProUGUI>().text = Enemy.Deaths.ToString();
-            EnemyStatusObject.transform.GetChild(17).GetComponent<TextMeshProUGUI>().text = Enemy.PhaseTable[CurrentPhase].CurrentTactic;
-            EnemyTowerStatusObject.transform.GetChild(1).GetComponent<HealthBar>().SetHealth(Enemy.TowerTable[0]);
-            EnemyTowerStatusObject.transform.GetChild(3).GetComponent<HealthBar>().SetHealth(Enemy.TowerTable[1]);
-            EnemyTowerStatusObject.transform.GetChild(5).GetComponent<HealthBar>().SetHealth(Enemy.TowerTable[2]);
-        }
-        catch(System.NullReferenceException err)
-        {
-            Debug.Log("Player Status bugged and cannot be updated: " + err.Message);
+            Debug.Log("Status bugged and cannot be updated: " + err.Message);
         }
         
     }
@@ -165,10 +146,12 @@ public class BattleScript : MonoBehaviour
     // Solution make this an IEnumerator, and make a Wrapper
     IEnumerator SimulateBattle()
     {
-        
+        CharacterStats CharacterA, CharacterB;
+        GameObject StatusObjectA, TowerStatusObjectA;
+        GameObject StatusObjectB, TowerStatusObjectB;
         // initiate Position, Decision, Damage, and String
-        int PlayerPosition, PlayerDecision, PlayerDamage = 0;
-        int EnemyPosition, EnemyDecision, EnemyDamage = 0;
+        int PositionA, DecisionA, DamageA = 0;
+        int PositionB, DecisionB, DamageB = 0;
         // reset both players health to 100
         // reset gold, farm, and k/d of players to 0
         Player.SetBattle();
@@ -177,290 +160,184 @@ public class BattleScript : MonoBehaviour
         int TurnCounter = 0;
         // breakout for testing
         int BreakOut = 0;
-        EnemyStatusUpdate();
-        PlayerStatusUpdate();
+        StatusUpdate(Enemy, EnemyStatusObject, EnemyTowerStatusObject);
+        StatusUpdate(Player, PlayerStatusObject, PlayerTowerStatusObject);
         bool GameOver = false;
         // fight while Tower is still alive,
         while (GameOver == false && BreakOut < 100)
         {
-            BreakOut++;
-            // start the action
-            PlayerPosition = Player.GetCharacterPosition(CurrentPhase);
-            EnemyPosition = Enemy.GetCharacterPosition(CurrentPhase);
-            Debug.Log(Player.Name + " positions " + (PositionText)PlayerPosition + " the minion wave.");
-            Debug.Log(Enemy.Name + " positions " + (PositionText)EnemyPosition + " the minion wave.");
-            yield return new WaitForSeconds(TimeDelay);
-            SendMessageToChat(Player.Name + " positions " + (PositionText)PlayerPosition + " the minion wave.");
-            yield return new WaitForSeconds(TimeDelay);
-            SendMessageToChat(Enemy.Name + " positions " + (PositionText)EnemyPosition + " the minion wave.");
-            // Both players make decisions
-            PlayerDecision = Player.GetCharacterDecision(EnemyPosition, PlayerPosition, CurrentPhase);
-            EnemyDecision = Enemy.GetCharacterDecision(PlayerPosition, EnemyPosition, CurrentPhase);
             // Determine Turn Order based on Focus
+            // CharacterA is whoever goes first.
             if(Player.GetInitiative() > Enemy.GetInitiative())
             {
-                // Player goes first
+                CharacterA = Player;
+                StatusObjectA = PlayerStatusObject;
+                TowerStatusObjectA = PlayerTowerStatusObject;
+                CharacterB = Enemy;
+                StatusObjectB = EnemyStatusObject;
+                TowerStatusObjectB = EnemyTowerStatusObject;
+                
+            }
+            else
+            {
+                CharacterA = Enemy;
+                StatusObjectA = EnemyStatusObject;
+                TowerStatusObjectA = EnemyTowerStatusObject;
+                CharacterB = Player;
+                StatusObjectB = PlayerStatusObject;
+                TowerStatusObjectB = PlayerTowerStatusObject;
+            }
+            BreakOut++;
+            // start the action
+            PositionA = CharacterA.GetCharacterPosition(CurrentPhase);
+            PositionB = CharacterB.GetCharacterPosition(CurrentPhase);
+            Debug.Log(CharacterA.Name + " positions " + (PositionText)PositionA + " the minion wave.");
+            Debug.Log(CharacterB.Name + " positions " + (PositionText)PositionB + " the minion wave.");
+            yield return new WaitForSeconds(TimeDelay);
+            SendMessageToChat(CharacterA.Name + " positions " + (PositionText)PositionA + " the minion wave.");
+            yield return new WaitForSeconds(TimeDelay);
+            SendMessageToChat(CharacterB.Name + " positions " + (PositionText)PositionB + " the minion wave.");
+            // Both players make decisions
+            DecisionA = CharacterA.GetCharacterDecision(PositionB, PositionA, CurrentPhase);
+            DecisionB = CharacterB.GetCharacterDecision(PositionA, PositionB, CurrentPhase);
+            // CharacterA goes first
+            yield return new WaitForSeconds(TimeDelay);
+            switch(DecisionA)
+            {
+                case 3:
+                SendMessageToChat(CharacterA.Name + " engages on " + CharacterB.Name + "!");
+                DamageA = CharacterA.Engage(PositionB, PositionA, CurrentPhase);
+                break;
+                case 2:
+                SendMessageToChat(CharacterA.Name + " chooses to " + (DecisionText)DecisionA + ".");
+                DamageA = CharacterA.Poke(PositionB, PositionA, CurrentPhase);
+                break;
+                case 1:
+                default:
+                int farm = CharacterA.Farm(0, PositionA, CurrentPhase);
+                SendMessageToChat(CharacterA.Name + " chooses to " + (DecisionText)DecisionA + ". " + CharacterA.Name + " gets " + farm.ToString() + " farm.");
+                StatusUpdate(CharacterA,StatusObjectA,TowerStatusObjectA);
+                DamageA = 0;
+                break;
+            }
+                // Enemy takes damage first
+            if (DecisionA != 1)
+            {
+                // If Player is poking, deal tower damage through poke
+                if(DecisionA == 2)
+                {
+                    yield return new WaitForSeconds(TimeDelay);
+                    TowerPoked(CharacterB,CharacterA,DamageA,StatusObjectB,TowerStatusObjectB);
+                }
                 yield return new WaitForSeconds(TimeDelay);
-                switch(PlayerDecision)
+                TakeDamage(CharacterB,CharacterA,DamageA,StatusObjectB,TowerStatusObjectB);
+            }
+            if(CharacterB.Dead())
+            {
+                // Enemy died give kill to player
+                CharacterA.Kills += 1;
+                CharacterA.KilledEnemy(1);
+                StatusUpdate(CharacterA,StatusObjectA,TowerStatusObjectA);
+                StatusUpdate(CharacterB,StatusObjectB,TowerStatusObjectB);
+                // Enemy Died, Take Turret Damage
+                yield return new WaitForSeconds(TimeDelay);
+                TakeTowerDamage(CharacterB,CharacterA,DamageA,StatusObjectB,TowerStatusObjectB);
+                // check for enemy tower health.
+                if(CharacterB.TowerTable[CharacterB.CurrentTower] <= 0)
                 {
-                    case 3:
-                    SendMessageToChat(Player.Name + " engages on " + Enemy.Name + "!");
-                    PlayerDamage = Player.Engage(EnemyPosition, PlayerPosition, CurrentPhase);
-                    break;
-                    case 2:
-                    SendMessageToChat(Player.Name + " chooses to " + (DecisionText)PlayerDecision + ".");
-                    PlayerDamage = Player.Poke(EnemyPosition, PlayerPosition, CurrentPhase);
-                    break;
-                    case 1:
-                    default:
-                    int farm = Player.Farm(0, PlayerPosition, CurrentPhase);
-                    SendMessageToChat(Player.Name + " chooses to " + (DecisionText)PlayerDecision + ". " + Player.Name + " gets " + farm.ToString() + " farm.");
-                    PlayerStatusUpdate();
-                    PlayerDamage = 0;
-                    break;
-                }
-                    // Enemy takes damage first
-                if (PlayerDecision != 1)
-                {
-                    // If Player is poking, deal tower damage through poke
-                    if(PlayerDecision == 2)
+                    CharacterB.CurrentTower++;
+                    if(CharacterB.CurrentTower > 2)
                     {
-                        yield return new WaitForSeconds(TimeDelay);
-                        EnemyTowerPoked(PlayerDamage);
+                        GameOver = true;
+                        CharacterB.CurrentTower = 2;
+                        Winner = CharacterB == Player ? 1 : 0;
+                        
                     }
-                    yield return new WaitForSeconds(TimeDelay);
-                    EnemyTakeDamage(PlayerDamage);
-                }
-                if(Enemy.Dead())
-                {
-                    // Enemy died give kill to player
-                    Player.Kills += 1;
-                    Player.KilledEnemy(1);
-                    PlayerStatusUpdate();
-                    // Enemy Died, Take Turret Damage
-                    yield return new WaitForSeconds(TimeDelay);
-                    EnemyTakeTowerDamage();
-                    // check for enemy tower health.
-                    if(Enemy.TowerTable[Enemy.CurrentTower] <= 0)
-                    {
-                        Enemy.CurrentTower++;
-                        if(Enemy.CurrentTower > 2)
-                        {
-                            GameOver = true;
-                            Enemy.CurrentTower = 2;
-                            Winner = 0;
-                        }
-                        // Update CurrentPhase to match Player or Enemy Tower Phase
-                        CurrentPhase = System.Math.Max(Player.CurrentTower, Enemy.CurrentTower);
-                        EnemyStatusUpdate();
-                    }
-                }
-                else
-                {
-                    // Enemy didn't die and gets to go
-                    yield return new WaitForSeconds(TimeDelay);
-                    if(PlayerDecision == 3 && EnemyDecision != 3)
-                    {
-                        // Enemy engage defence activated
-                        SendMessageToChat(Enemy.Name + " defends against the engage!");
-                        EnemyDamage = Enemy.EngageDefence(PlayerPosition, EnemyPosition, CurrentPhase);
-                    }
-                    else
-                    {
-                        switch(EnemyDecision)
-                        {
-                            case 3:
-                            SendMessageToChat(Enemy.Name + " engages on " + Player.Name + "!");
-                            EnemyDamage = Enemy.Engage(PlayerPosition, EnemyPosition, CurrentPhase);
-                            break;
-                            case 2:
-                            SendMessageToChat(Enemy.Name + " chooses to " + (DecisionText)EnemyDecision + ".");
-                            EnemyDamage = Enemy.Poke(PlayerPosition, EnemyPosition, CurrentPhase);
-                            break;
-                            case 1:
-                            default:
-                            int farm = Enemy.Farm(PlayerDamage, EnemyPosition, CurrentPhase);
-                            SendMessageToChat(Enemy.Name + " chooses to " + (DecisionText)EnemyDecision + ". " + Enemy.Name + " gets " + farm.ToString() + " farm.");
-                            EnemyDamage = 0;
-                            EnemyStatusUpdate();
-                            break;
-                        }
-                    }
-                    // Enemy is not dead, Enemy deals damage back
-                    if(EnemyDecision != 1)
-                    {
-                        // If Enemy is poking, deal tower damage through poke
-                        if(EnemyDecision == 2)
-                        {
-                            yield return new WaitForSeconds(TimeDelay);
-                            PlayerTowerPoked(EnemyDamage);
-                        }
-                        yield return new WaitForSeconds(TimeDelay);
-                        PlayerTakeDamage(EnemyDamage);
-                        //check if player died and if enemy deals turret damage
-                        if(Player.Dead())
-                        {
-                            // Player died, give a kill to the Enemy
-                            Enemy.Kills += 1;
-                            Enemy.KilledEnemy(1);
-                            EnemyStatusUpdate();
-                            yield return new WaitForSeconds(TimeDelay);
-                            PlayerTakeTowerDamage();
-                            // check for player tower health.
-                            if(Player.TowerTable[Player.CurrentTower] <= 0)
-                            {
-                                Player.CurrentTower++;
-                                if(Player.CurrentTower > 2)
-                                {
-                                    GameOver = true;
-                                    Player.CurrentTower = 2;
-                                    Winner = 1;
-                                }
-                                // Update CurrentPhase to match Player or Enemy Tower Phase
-                                CurrentPhase = System.Math.Max(Player.CurrentTower, Enemy.CurrentTower);
-                                PlayerStatusUpdate();
-                            }
-                        }
-                    }
+                    // Update CurrentPhase to match Player or Enemy Tower Phase
+                    CurrentPhase = System.Math.Max(CharacterA.CurrentTower, CharacterB.CurrentTower);
+                    StatusUpdate(CharacterB,StatusObjectB,TowerStatusObjectB);
                 }
             }
             else
             {
-                // Enemy goes first
+                // Enemy didn't die and gets to go
                 yield return new WaitForSeconds(TimeDelay);
-                switch(EnemyDecision)
+                if(DecisionA == 3 && DecisionB != 3)
                 {
-                    case 3:
-                    SendMessageToChat(Enemy.Name + " engages on " + Player.Name + "!");
-                    EnemyDamage = Enemy.Engage(PlayerPosition, EnemyPosition, CurrentPhase);
-                    break;
-                    case 2:
-                    SendMessageToChat(Enemy.Name + " chooses to " + (DecisionText)EnemyDecision + ".");
-                    EnemyDamage = Enemy.Poke(PlayerPosition, EnemyPosition, CurrentPhase);
-                    break;
-                    case 1:
-                    default:
-                    int farm = Enemy.Farm(0, EnemyPosition, CurrentPhase);
-                    SendMessageToChat(Enemy.Name + " chooses to " + (DecisionText)EnemyDecision + ". " + Enemy.Name + " gets " + farm.ToString() + " farm.");
-                    EnemyDamage = 0;
-                    EnemyStatusUpdate();
-                    break;
-                }
-                // player takes damage first
-                if(EnemyDecision != 1)
-                {
-                    // If Player is poking, deal tower damage through poke
-                    if(EnemyDecision == 2)
-                    {
-                        yield return new WaitForSeconds(TimeDelay);
-                        PlayerTowerPoked(EnemyDamage);
-                    }
-                    yield return new WaitForSeconds(TimeDelay);
-                    PlayerTakeDamage(EnemyDamage);
-                }
-                if(Player.Dead())
-                {
-                    // Player dead, give kill to enemy
-                    Enemy.Kills += 1;
-                    Enemy.KilledEnemy(1);
-                    EnemyStatusUpdate();
-                    yield return new WaitForSeconds(TimeDelay);
-                    // Enemy died and deals no damage, player deals tower damage 
-                    PlayerTakeTowerDamage();
-                    // check for player tower health.
-                    if(Player.TowerTable[Player.CurrentTower] <= 0)
-                    {
-                        Player.CurrentTower++;
-                        if(Player.CurrentTower > 2)
-                        {
-                            GameOver = true;
-                            Player.CurrentTower = 2;
-                            Winner = 1;
-                        }
-                        // Update CurrentPhase to match Player or Enemy Tower Phase
-                        CurrentPhase = System.Math.Max(Player.CurrentTower, Enemy.CurrentTower);
-                        PlayerStatusUpdate();
-                    }
+                    // Enemy engage defence activated
+                    SendMessageToChat(CharacterB.Name + " defends against the engage!");
+                    DamageB = CharacterB.EngageDefence(PositionA, PositionB, CurrentPhase);
                 }
                 else
                 {
-                    // Player didn't die and gets to go
-                    yield return new WaitForSeconds(TimeDelay);
-                    if(EnemyDecision == 3 && PlayerDecision != 3)
+                    switch(DecisionB)
                     {
-                        // Enemy engage defence activated
-                        SendMessageToChat(Player.Name + " defends against the engage!");
-                        PlayerDamage = Enemy.EngageDefence(PlayerPosition, EnemyPosition, CurrentPhase);
+                        case 3:
+                        SendMessageToChat(CharacterB.Name + " engages on " + CharacterA.Name + "!");
+                        DamageB = CharacterB.Engage(PositionA, PositionB, CurrentPhase);
+                        break;
+                        case 2:
+                        SendMessageToChat(CharacterB.Name + " chooses to " + (DecisionText)DecisionB + ".");
+                        DamageB = CharacterB.Poke(PositionA, PositionB, CurrentPhase);
+                        break;
+                        case 1:
+                        default:
+                        int farm = CharacterB.Farm(DamageA, PositionB, CurrentPhase);
+                        SendMessageToChat(CharacterB.Name + " chooses to " + (DecisionText)DecisionB + ". " + CharacterB.Name + " gets " + farm.ToString() + " farm.");
+                        DamageB = 0;
+                        StatusUpdate(CharacterB,StatusObjectB,TowerStatusObjectB);
+                        break;
                     }
-                    else
+                }
+                // Enemy is not dead, Enemy deals damage back
+                if(DecisionB != 1)
+                {
+                    // If Enemy is poking, deal tower damage through poke
+                    if(DecisionB == 2)
                     {
-                        switch(PlayerDecision)
-                        {
-                            case 3:
-                            SendMessageToChat(Player.Name + " engages on " + Enemy.Name + "!");
-                            PlayerDamage = Player.Engage(EnemyPosition, PlayerPosition, CurrentPhase);
-                            break;
-                            case 2:
-                            SendMessageToChat(Player.Name + " chooses to " + (DecisionText)PlayerDecision + ".");
-                            PlayerDamage = Player.Poke(EnemyPosition, PlayerPosition, CurrentPhase);
-                            break;
-                            case 1:
-                            default:
-                            int farm = Player.Farm(EnemyDamage, EnemyPosition, CurrentPhase);
-                            SendMessageToChat(Player.Name + " chooses to " + (DecisionText)PlayerDecision + ". " + Player.Name + " gets " + farm.ToString() + " farm.");
-                            PlayerDamage = 0;
-                            PlayerStatusUpdate();
-                            break;
-                        }
-                    }
-                    //Player deals damage back
-                    if(PlayerDamage != 1)
-                    {
-                        // If Player is poking, deal tower damage through poke
-                        if(PlayerDecision == 2)
-                        {
-                            yield return new WaitForSeconds(TimeDelay);
-                            EnemyTowerPoked(PlayerDamage);
-                        }
                         yield return new WaitForSeconds(TimeDelay);
-                        EnemyTakeDamage(PlayerDamage);
-                        //check if enemy died and player deals turret damage
-                        if(Enemy.Dead())
+                        TowerPoked(CharacterA,CharacterB,DamageB,StatusObjectA,TowerStatusObjectA);
+                    }
+                    yield return new WaitForSeconds(TimeDelay);
+                    TakeDamage(CharacterA,CharacterB,DamageB,StatusObjectA,TowerStatusObjectA);
+                    //check if player died and if enemy deals turret damage
+                    if(CharacterA.Dead())
+                    {
+                        // Player died, give a kill to the Enemy
+                        CharacterB.Kills += 1;
+                        CharacterB.KilledEnemy(1);
+                        StatusUpdate(CharacterB,StatusObjectB,TowerStatusObjectB);
+                        StatusUpdate(CharacterA,StatusObjectA,TowerStatusObjectA);
+                        yield return new WaitForSeconds(TimeDelay);
+                        TakeTowerDamage(CharacterA,CharacterB,DamageB,StatusObjectA,TowerStatusObjectA);
+                        // check for player tower health.
+                        if(CharacterA.TowerTable[CharacterA.CurrentTower] <= 0)
                         {
-                            Player.Kills += 1;
-                            Player.KilledEnemy(1);
-                            PlayerStatusUpdate();
-                            yield return new WaitForSeconds(TimeDelay);
-                            EnemyTakeTowerDamage();
-                            // check for enemy tower health.
-                            if(Enemy.TowerTable[Enemy.CurrentTower] <= 0)
+                            CharacterA.CurrentTower++;
+                            if(CharacterA.CurrentTower > 2)
                             {
-                                Enemy.CurrentTower++;
-                                if(Enemy.CurrentTower > 2)
-                                {
-                                    GameOver = true;
-                                    Enemy.CurrentTower = 2;
-                                    Winner = 0;
-                                }
-                                // Update CurrentPhase to match Player or Enemy Tower Phase
-                                CurrentPhase = System.Math.Max(Player.CurrentTower, Enemy.CurrentTower);
-                                EnemyStatusUpdate();
+                                GameOver = true;
+                                CharacterA.CurrentTower = 2;
+                                Winner = CharacterA == Player ? 1 : 0;
                             }
+                            // Update CurrentPhase to match Player or Enemy Tower Phase
+                            CurrentPhase = System.Math.Max(CharacterA.CurrentTower, CharacterB.CurrentTower);
+                            StatusUpdate(CharacterA,StatusObjectA,TowerStatusObjectA);
                         }
-                    }   
+                    }
                 }
             }
             // increment TurnCounter  
             TurnCounter++;
-            if(Player.Dead())
+            if(CharacterA.Dead())
             {
-                Player.CurrentHealth = CharacterStats.MaxHealth;
-                PlayerStatusUpdate();
+                CharacterA.CurrentHealth = CharacterStats.MaxHealth;
+                StatusUpdate(CharacterA,StatusObjectA,TowerStatusObjectA);
             }
-            if(Enemy.Dead())
+            if(CharacterB.Dead())
             {
-                Enemy.CurrentHealth = CharacterStats.MaxHealth;
-                EnemyStatusUpdate();
+                CharacterB.CurrentHealth = CharacterStats.MaxHealth;
+                StatusUpdate(CharacterB,StatusObjectB,TowerStatusObjectB);
             }
         }
         // Game Over, show post match thread, close Dialog and bring up BattleOverScene. Reset Player's
@@ -483,54 +360,29 @@ public class BattleScript : MonoBehaviour
         return Winner;
     }
 
-    private void PlayerTakeDamage(int EnemyDamage)
+    private void TakeDamage(CharacterStats Receiver, CharacterStats Dealer, int Damage, GameObject StatusObject, GameObject TowerStatusObject)
     {
         // resolve damage dealt to the player
-        Player.TakeDamage(EnemyDamage); 
+        Receiver.TakeDamage(Damage); 
         // Update Text on health status and on Battle Text.
-        SendMessageToChat(Enemy.Name + " deals " + EnemyDamage.ToString() + " damage to " + Player.Name + ".");
-        PlayerStatusUpdate();
+        SendMessageToChat(Dealer.Name + " deals " + Damage.ToString() + " damage to " + Receiver.Name + ".");
+        StatusUpdate(Receiver, StatusObject, TowerStatusObject);
     }
 
-    private void PlayerTowerPoked(int EnemyDamage)
+    private void TowerPoked(CharacterStats Receiver, CharacterStats Dealer, int Damage, GameObject StatusObject, GameObject TowerStatusObject)
     {
         // if the Enemy uses Poke damage, then the Turrets are damaged as well.(1-1 ratio)
-        Player.LoseTowerHealth(EnemyDamage);
-        SendMessageToChat(Enemy.Name + " deals " + EnemyDamage.ToString() + " damage to " + Player.Name + "'s tower through Poke.");
-        PlayerStatusUpdate();
+        Receiver.LoseTowerHealth(Damage);
+        SendMessageToChat(Dealer.Name + " deals " + Damage.ToString() + " damage to " + Receiver.Name + "'s tower through Poke.");
+        StatusUpdate(Receiver, StatusObject, TowerStatusObject);
     }
 
-    private void PlayerTakeTowerDamage()
+    private void TakeTowerDamage(CharacterStats Receiver, CharacterStats Dealer, int Damage, GameObject StatusObject, GameObject TowerStatusObject)
     {
         // Player is Dead, Enemy deals Turret Damage
-        int TowerDamage = Enemy.DealTowerDamage();
-        Player.LoseTowerHealth(TowerDamage);
-        SendMessageToChat(Enemy.Name + " deals " + TowerDamage.ToString() + " damage to " + Player.Name + "'s tower after " + Player.Name + " has died.");
-        PlayerStatusUpdate();
-    }
-    private void EnemyTakeDamage(int PlayerDamage)
-    {
-        // resolve damage dealt to the Enemy
-        Enemy.TakeDamage(PlayerDamage);
-        // Update Text on health status and on Battle Text.
-        SendMessageToChat(Player.Name + " deals " + PlayerDamage.ToString() + " damage to " + Enemy.Name + ".");
-        EnemyStatusUpdate();
-    }
-
-    private void EnemyTowerPoked(int PlayerDamage)
-    {
-        // if the Player uses Poke damage, then the Turrets are damaged as well.(1-1 ratio)
-        Enemy.LoseTowerHealth(PlayerDamage);
-        SendMessageToChat(Player.Name + " deals " + PlayerDamage.ToString() + " damage to " + Enemy.Name + "'s tower through Poke.");
-        EnemyStatusUpdate();
-    }
-
-    private void EnemyTakeTowerDamage()
-    {
-        // Enemy is Dead, Player deals Turret Damage
-        int TowerDamage = Player.DealTowerDamage();
-        Enemy.LoseTowerHealth(TowerDamage);
-        SendMessageToChat(Player.Name + " deals " + TowerDamage.ToString() + " damage to " + Enemy.Name + "'s tower after " + Enemy.Name + " has died.");
-        EnemyStatusUpdate();
+        int TowerDamage = Dealer.DealTowerDamage();
+        Receiver.LoseTowerHealth(TowerDamage);
+        SendMessageToChat(Dealer.Name + " deals " + TowerDamage.ToString() + " damage to " + Receiver.Name + "'s tower after " + Receiver.Name + " has died.");
+        StatusUpdate(Receiver, StatusObject, TowerStatusObject);
     }
 }

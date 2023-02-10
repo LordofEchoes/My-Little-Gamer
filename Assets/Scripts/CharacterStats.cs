@@ -292,16 +292,7 @@ public class CharacterStats
         int distance = Distance(EnemyPosition, CurrentPosition, CurrentPhase);
         if(DecisionRoll + StatTable["Decisions"].Value >= 25)
         {
-            switch(distance)
-            {
-                case 1: return 1;
-                case 2: return 2;
-                case 3: return 3;
-                default: return 1;
-            }
-            // 1 is Farm
-            // 2 is Poke
-            // 3 is Engage
+            return distance == 0? 1 : distance;
         }
         // randomly generate a decision.
         else

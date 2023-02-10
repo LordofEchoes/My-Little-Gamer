@@ -28,7 +28,7 @@ public class DayCycle
 
     public bool CheckIncrement()
     {
-        return CurrentCycle + 1 > CycleLimit ? true : false;
+        return CurrentCycle + 1 > CycleLimit;
     }
 
     public void IncrementCycle()

@@ -20,13 +20,11 @@ public class TutorialScreen : MonoBehaviour
             Debug.Log("TutorialScreen not working");
             throw;
         }
-        
-
+        CheckTutorial();
     }
 
     // Update only called once the parent is active, thus TS is the object that we will activate and deactivate.
     // Not completely necessary to use Update, only when the scene first appears.
-    
     void Update()
     {
         
@@ -36,6 +34,7 @@ public class TutorialScreen : MonoBehaviour
     {
         if(Manager.Tutorial == 0)
         {
+            Debug.Log($"Tutorial Screen on: {Manager.Tutorial}");
             TS.SetActive(true);
             if(Override != null)
             {
@@ -44,6 +43,7 @@ public class TutorialScreen : MonoBehaviour
         }
         else
         {
+            Debug.Log($"Tutorial Screen off: {Manager.Tutorial}");
             TS.SetActive(false);
             if(Override != null)
             {

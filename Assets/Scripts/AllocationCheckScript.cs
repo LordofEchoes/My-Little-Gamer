@@ -57,5 +57,4 @@ public class AllocationCheckScript : MonoBehaviour
         yield return new WaitForSeconds (2);
         ErrorDisplayObject.GetComponent<PopUpScript>().CloseDialog();
     }
-
 }

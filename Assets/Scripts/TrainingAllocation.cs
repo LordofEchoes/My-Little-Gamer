@@ -41,6 +41,18 @@ public class TrainingAllocation : MonoBehaviour
         PointDisplay.text = (TrainingPointTotal - PointCount).ToString();
     }
 
+    public bool PointsSpent()
+    {
+        if (PointCount < TrainingPointTotal)
+        {
+            ErrorText.text = $"There are still {TrainingPointTotal-PointCount} training points that can be spent";
+            ErrorObject.SetActive(true);
+            StartCoroutine(WaitForError());
+            return false;
+        }
+        return true;
+    }
+
     public void ChangePoint(string TableKey, int Value)
     {
         if (TrainingPointsTable[TableKey] + Value < 0)
