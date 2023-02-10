@@ -102,6 +102,9 @@ public class BattleScript : MonoBehaviour
         //assign Names to text boxes
         PlayerNameText.text = Player.Name;
         EnemyNameText.text = Enemy.Name;
+        // Make sure players are set for battle
+        Player.SetBattle();
+        Enemy.SetBattle();
         // Assign tower max health
         PlayerTowerStatusObject.transform.GetChild(1).GetComponent<HealthBar>().SetMaxHealth(Player.TowerTable[0]);
         PlayerTowerStatusObject.transform.GetChild(3).GetComponent<HealthBar>().SetMaxHealth(Player.TowerTable[1]);
@@ -461,8 +464,6 @@ public class BattleScript : MonoBehaviour
             }
         }
         // Game Over, show post match thread, close Dialog and bring up BattleOverScene. Reset Player's
-        Player.SetBattle();
-        Enemy.SetBattle();
         try 
         {
             // close current screen

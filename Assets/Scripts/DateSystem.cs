@@ -12,7 +12,7 @@ public class DateSystem
     //constructor default
     public DateSystem()
     {
-        DT = new System.DateTime(2023,2,4);
+        DT = new System.DateTime(2023,8,4);
         DayCycle = new DayCycle();
         MonthName = new Dictionary<int, string>();
         MonthName.Add(1,"Jan");
@@ -114,7 +114,7 @@ public class DateSystem
     //check if its sunday and its time to battle
     public bool CheckBattle()
     {
-        Debug.Log($"DayOfTheWeek: {(int)DT.DayOfWeek}");
+        // Debug.Log($"DayOfTheWeek: {(int)DT.DayOfWeek}");
         return (int)DT.DayOfWeek == 0 && DayCycle.GetCycle() == 0? true : false;
     }
 }

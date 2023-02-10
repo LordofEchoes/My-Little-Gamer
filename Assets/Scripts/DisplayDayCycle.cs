@@ -18,6 +18,7 @@ public class DisplayDayCycle : MonoBehaviour
         }
         catch (System.Exception err)
         {
+            DS = new DateSystem();
             Debug.Log($"Check Day Night bugged: {err}");
             throw;
         }

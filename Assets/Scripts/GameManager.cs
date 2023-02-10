@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] EnemyManager EM;
     [SerializeField] DateSystem DS;
     [SerializeField] CharacterStats Player;
+    public int Tutorial {get;set;}
     // Start is called before the first frame update
     void Awake()
     {
@@ -26,7 +27,7 @@ public class GameManager : MonoBehaviour
 
     public EnemyManager GetEnemyManager()
     {
-        Debug.Log($"Return EnemyManager");
+        // Debug.Log($"Return EnemyManager");
         return EM;
     }
 
@@ -52,4 +53,5 @@ public class GameManager : MonoBehaviour
     {
         Player.Amount = amount;
     }
+
 }

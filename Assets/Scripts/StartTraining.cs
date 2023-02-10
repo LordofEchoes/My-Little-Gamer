@@ -56,6 +56,36 @@ public class StartTraining : MonoBehaviour
         Debug.Log("Training Stats display have been deactivated");
     }
 
+    // Tutorial Training so does not give player the stats
+    public void TrainTutorial()
+    {
+        int[] StatDifference = new int[6];
+        // train Mechanics: trains solely on Mechanics(80%) and Aggression(20%)
+        double MechanicsTraining = TrainingPointsScript.TrainingPointsTable["Mechanics"] + .5;
+        // train Tactics: trains tactic proficiency(60%) + Decision(20%) + Positioning(20%) stat
+        double TacticsTraining = TrainingPointsScript.TrainingPointsTable["Tactics"] + .5;
+        // train Knowledge: trains Focus(30%), Decisions(30%), Positioning(30%), and Aggression(10%)
+        double KnowledgeTraining = TrainingPointsScript.TrainingPointsTable["Knowledge"]+ .5;
+        int HappinessModifier = 1;
+        double TotalMechanicsExperience = new System.Random().Next(50,100)*MechanicsTraining;
+        double GivenMechanicsExperience = TotalMechanicsExperience/2 + HappinessModifier*TotalMechanicsExperience/2/Player.MaxStat;
+        StatDifference[5] = (int)System.Math.Truncate(GivenMechanicsExperience*.8);
+        StatDifference[1] = (int)System.Math.Truncate(GivenMechanicsExperience*.2);
+        double TotalTacticExperience = new System.Random().Next(50,100)*TacticsTraining;
+        double GivenTacticExperience = TotalTacticExperience/2 + HappinessModifier*TotalTacticExperience/2/Player.MaxStat;
+        StatDifference[0] = (int)System.Math.Truncate(GivenTacticExperience*.6);
+        StatDifference[3] = (int)System.Math.Truncate(GivenTacticExperience*.2);
+        StatDifference[4] = (int)System.Math.Truncate(GivenTacticExperience*.2);
+        double TotalKnowledgeExperience = new System.Random().Next(50,100)*KnowledgeTraining;
+        double GivenKnowledgeExperience = TotalKnowledgeExperience/2 + HappinessModifier*TotalKnowledgeExperience/2/Player.MaxStat;
+        StatDifference[2] = (int)System.Math.Truncate(GivenKnowledgeExperience*.3);
+        StatDifference[3] += (int)System.Math.Truncate(GivenKnowledgeExperience*.3);
+        StatDifference[4] += (int)System.Math.Truncate(GivenKnowledgeExperience*.3);
+        StatDifference[1] += (int)System.Math.Truncate(GivenKnowledgeExperience*.1);
+        DisplayStats(StatDifference);
+    }
+
+    //training that gives player actual stats.
     public void Train()
     {
         /*
@@ -100,7 +130,7 @@ public class StartTraining : MonoBehaviour
         Player.TrainStat("Aggression", (int)System.Math.Truncate(GivenKnowledgeExperience*.1));
         StatDifference[1] += (int)System.Math.Truncate(GivenKnowledgeExperience*.1);
         DisplayStats(StatDifference);
-        DS.ProgressDay();
+        DS.ProgressDay(); 
     }
 
     public void DisplayStats(int[] StatDifference)
