@@ -33,11 +33,17 @@ public class BattleScript : MonoBehaviour
     public int Winner;
 
     // adjectives for where the player positions(relative to your minions)
-    public enum PositionText
+    public string PositionText(int value)
     {
-        behind = 1,
-        amidst = 2,
-        after = 3
+        switch(value)
+        {
+            case 1:
+            return "behind";
+            case 2:
+            return "in the middle of";
+            case 3:
+            return "in front of";
+        }
     }
     // Tactic chosen based off of Decision
     public enum DecisionText
@@ -191,12 +197,12 @@ public class BattleScript : MonoBehaviour
             // start the action
             PositionA = CharacterA.GetCharacterPosition(CurrentPhase);
             PositionB = CharacterB.GetCharacterPosition(CurrentPhase);
-            Debug.Log(CharacterA.Name + " positions " + (PositionText)PositionA + " the minion wave.");
-            Debug.Log(CharacterB.Name + " positions " + (PositionText)PositionB + " the minion wave.");
+            Debug.Log(CharacterA.Name + " positions " + PositionText(PositionA) + " the minion wave.");
+            Debug.Log(CharacterB.Name + " positions " + PositionText(PositionB) + " the minion wave.");
             yield return new WaitForSeconds(TimeDelay);
-            SendMessageToChat(CharacterA.Name + " positions " + (PositionText)PositionA + " the minion wave.");
+            SendMessageToChat(CharacterA.Name + " positions " + PositionText(PositionA) + " the minion wave.");
             yield return new WaitForSeconds(TimeDelay);
-            SendMessageToChat(CharacterB.Name + " positions " + (PositionText)PositionB + " the minion wave.");
+            SendMessageToChat(CharacterB.Name + " positions " + PositionText(PositionB) + " the minion wave.");
             // Both players make decisions
             DecisionA = CharacterA.GetCharacterDecision(PositionB, PositionA, CurrentPhase);
             DecisionB = CharacterB.GetCharacterDecision(PositionA, PositionB, CurrentPhase);
