@@ -44,6 +44,7 @@ public class BattleScript : MonoBehaviour
             case 3:
             return "in front of";
         }
+        return "behind";
     }
     // Tactic chosen based off of Decision
     public enum DecisionText

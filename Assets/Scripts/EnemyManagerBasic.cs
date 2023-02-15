@@ -38,7 +38,7 @@ public class EnemyManagerBasic : EnemyManager
     // Returns the current enemy that the player should be fighting against
     public override CharacterStats GetCurrentEnemy()
     {
-        Debug.Log($"EnemyTable Count: {EnemyTable.Count}\nCurrentIndex: {CurrentEnemyIndex}");
+        // Debug.Log($"EnemyTable Count: {EnemyTable.Count}\nCurrentIndex: {CurrentEnemyIndex}");
         if(EnemyTable.Count > CurrentEnemyIndex)
         {
             return EnemyTable[CurrentEnemyIndex];

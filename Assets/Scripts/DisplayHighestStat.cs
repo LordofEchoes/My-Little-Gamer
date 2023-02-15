@@ -30,10 +30,10 @@ public class DisplayHighestStat : MonoBehaviour
             Character = new CharacterStats();
             Debug.Log("DisplayHighestStat Character bugged: " + err.Message);
         }
-        OnEnable();
+        OnChange();
     }
 
-    void OnEnable()
+    void OnChange()
     {
         DisplayText.text = Character.GetHighestStat();
     }
