@@ -17,7 +17,7 @@ public class PostMatch : MonoBehaviour
     {
         try
         {
-            Character = CharacterPanel == 1? GameObject.Find("UniversalGameManager").GetComponent<GameManager>().GetPlayer() : GameObject.Find("UniversalGameManager").GetComponent<GameManager>().GetEnemyManager().GetCurrentEnemy();
+            Character = CharacterPanel == 1 ? GameObject.Find("UniversalGameManager").GetComponent<GameManager>().GetPlayer() : GameObject.Find("UniversalGameManager").GetComponent<GameManager>().GetEnemyManager().GetCurrentEnemy();
         }
         catch(System.NullReferenceException err)
         {

@@ -14,9 +14,9 @@ public class Gold
     // CS needed to trade in for gold
     private static int CSPerValue = 10;
     // gold for each time value is reached
-    private static int GoldPerValue = 25;
+    private static int GoldPerValue = 15;
     // gold for each kill
-    private static int GoldPerKill = 100;
+    private static int GoldPerKill = 30;
 
     public static implicit operator int(Gold g) => g.gold;
     public static implicit operator Gold(int i) => new Gold(i);
@@ -72,5 +72,7 @@ public class Gold
     {
         gold = 0;
         CSToNextGold = 0;
+        TotalCreepScore = 0;
+        TotalKills = 0;
     }
 }

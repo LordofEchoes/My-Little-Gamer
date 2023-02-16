@@ -17,7 +17,7 @@ public class ShowLeagueMatch : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (DS.CanTrain())
+        if (DS.GetDayOfWeek() == 0)
         {
             MatchObject.SetActive(true);
         }

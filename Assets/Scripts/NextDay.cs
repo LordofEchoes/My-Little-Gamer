@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class NextDay : MonoBehaviour
 {
     [SerializeField] GameObject Manager;
-    private CharacterStats Player;
     [SerializeField] DateSystem DS;
     [SerializeField] Button NextDayButton;
     [SerializeField] GameObject BattleScreen;
@@ -17,19 +17,6 @@ public class NextDay : MonoBehaviour
         try
         {
             Manager = GameObject.Find("UniversalGameManager");
-            Player = Manager.GetComponent<GameManager>().GetPlayer();
-            
-        }
-        catch(System.NullReferenceException err)
-        {
-            Player = new CharacterStats();
-            Player.BuildNew();
-            DS = new DateSystem();
-            Debug.Log("NextDay Player bugged: " + err.Message);
-        }
-
-        try
-        {
             DS = Manager.GetComponent<GameManager>().GetDateSystem();
         }
         catch(System.NullReferenceException err)
@@ -44,21 +31,23 @@ public class NextDay : MonoBehaviour
     // check if the next day button should be set active or deactivated.
     void Update()
     {
-        if (NextDayButton.interactable == false && DS.CheckNextDay())
+        // if week is true then we want to 
+        if(DS.CheckWeek())
         {
             NextDayButton.interactable = true;
+            gameObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Next Week";
         }
-        else if (NextDayButton.interactable == true && DS.CheckNextDay() == false)
+        else if (DS.CheckDay())
+        {
+            NextDayButton.interactable = true;
+            gameObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Next Day";
+        }
+        else if (NextDayButton.interactable == true && DS.CheckDay() == false)
         {
             NextDayButton.interactable = false;
+            gameObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Next Day";
         }
-        
-    }
-
-    public void ProgressDay()
-    {
-        DS.ProgressDay();
-        if(DS.CheckWeek())
+        if(DS.CheckBattle())
         {
             BattleScreen.SetActive(true);
         }

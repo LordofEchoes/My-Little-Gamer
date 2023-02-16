@@ -13,7 +13,9 @@ public class StartTraining : MonoBehaviour
     [SerializeField] DateSystem DS;
     [SerializeField] GameObject DisplayGameObject;
     [SerializeField] TextMeshProUGUI[] StatText;
-
+    [SerializeField] int TutorialOrActual;
+    [SerializeField] GameObject TrainingUI1;
+    [SerializeField] GameObject TrainingUI2;
     void Start()
     {
         try
@@ -51,12 +53,68 @@ public class StartTraining : MonoBehaviour
         {
             StatText[i].text = "+0";
         }
-        Debug.Log("Stats have been disabled to zero.");
+        Debug.Log("Stats Display have been disabled to zero.");
         DisplayGameObject.SetActive(false);
         Debug.Log("Training Stats display have been deactivated");
     }
 
+    // Determines which training to use based on int argument.
     public void Train()
+    {
+        // if statement to check for errors.
+        if(TrainingPointsScript.PointsSpent())
+        {
+            if (TutorialOrActual == 0)
+            {
+                TrainActual();
+            }
+            else
+            {
+                TrainTutorial();
+                try
+                {
+                    TrainingUI1.SetActive(false);
+                    TrainingUI2.SetActive(true);
+                }
+                catch(System.NullReferenceException err)
+                {
+                    Debug.Log("StartTraining Tutorial Ui Bugged: " + err.Message);
+                }
+            }
+        }
+    }
+
+    // Tutorial Training so does not give player the stats
+    private void TrainTutorial()
+    {
+        int[] StatDifference = new int[6];
+        // train Mechanics: trains solely on Mechanics(80%) and Aggression(20%)
+        double MechanicsTraining = TrainingPointsScript.TrainingPointsTable["Mechanics"] + .5;
+        // train Tactics: trains tactic proficiency(60%) + Decision(20%) + Positioning(20%) stat
+        double TacticsTraining = TrainingPointsScript.TrainingPointsTable["Tactics"] + .5;
+        // train Knowledge: trains Focus(30%), Decisions(30%), Positioning(30%), and Aggression(10%)
+        double KnowledgeTraining = TrainingPointsScript.TrainingPointsTable["Knowledge"]+ .5;
+        int HappinessModifier = 1;
+        double TotalMechanicsExperience = new System.Random().Next(50,100)*MechanicsTraining;
+        double GivenMechanicsExperience = TotalMechanicsExperience/2 + HappinessModifier*TotalMechanicsExperience/2/Player.MaxStat;
+        StatDifference[5] = (int)System.Math.Truncate(GivenMechanicsExperience*.8);
+        StatDifference[1] = (int)System.Math.Truncate(GivenMechanicsExperience*.2);
+        double TotalTacticExperience = new System.Random().Next(50,100)*TacticsTraining;
+        double GivenTacticExperience = TotalTacticExperience/2 + HappinessModifier*TotalTacticExperience/2/Player.MaxStat;
+        StatDifference[0] = (int)System.Math.Truncate(GivenTacticExperience*.6);
+        StatDifference[3] = (int)System.Math.Truncate(GivenTacticExperience*.2);
+        StatDifference[4] = (int)System.Math.Truncate(GivenTacticExperience*.2);
+        double TotalKnowledgeExperience = new System.Random().Next(50,100)*KnowledgeTraining;
+        double GivenKnowledgeExperience = TotalKnowledgeExperience/2 + HappinessModifier*TotalKnowledgeExperience/2/Player.MaxStat;
+        StatDifference[2] = (int)System.Math.Truncate(GivenKnowledgeExperience*.3);
+        StatDifference[3] += (int)System.Math.Truncate(GivenKnowledgeExperience*.3);
+        StatDifference[4] += (int)System.Math.Truncate(GivenKnowledgeExperience*.3);
+        StatDifference[1] += (int)System.Math.Truncate(GivenKnowledgeExperience*.1);
+        DisplayStats(StatDifference);
+    }
+
+    //training that gives player actual stats.
+    private void TrainActual()
     {
         /*
         Experience: random number between 50 and 100. half is guaranteed. happiness modifier gives ratio of modifier over max happiness.
@@ -100,7 +158,7 @@ public class StartTraining : MonoBehaviour
         Player.TrainStat("Aggression", (int)System.Math.Truncate(GivenKnowledgeExperience*.1));
         StatDifference[1] += (int)System.Math.Truncate(GivenKnowledgeExperience*.1);
         DisplayStats(StatDifference);
-        DS.ProgressDay();
+        DS.ProgressDay(); 
     }
 
     public void DisplayStats(int[] StatDifference)

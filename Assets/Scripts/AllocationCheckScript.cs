@@ -33,23 +33,16 @@ public class AllocationCheckScript : MonoBehaviour
     // uses get Player Stats GetAmount() to get the amount that the player script is changing by
     public void OnChange(string StatName)
     {
-        if (AvailiablePoints - Player.Amount > PointsToAllocate)
+        if (AvailiablePoints - Player.Amount  < 0)
         {
-            ValueText.text = ("Cannot have more than " + PointsToAllocate.ToString() + " availiable points.");
-            ErrorDisplayObject.SetActive(true);
-            StartCoroutine(WaitForError());
-            return;
-        }
-        else if (AvailiablePoints - Player.Amount  < 0)
-        {
-            ValueText.text = ("Cannot have less than 0 availiable points.");
+            ValueText.text = ($"Cannot distribute more than {PointsToAllocate} points.");
             ErrorDisplayObject.SetActive(true);
             StartCoroutine(WaitForError());
             return;
         }
         else if (Player.StatTable[StatName].Value + Player.Amount < 1)
         {
-            ValueText.text = ("Cannot have less than 1 of a player stat.");
+            ValueText.text = ("Cannot have 0 points in a stat");
             ErrorDisplayObject.SetActive(true);
             StartCoroutine(WaitForError());
             return;
@@ -64,5 +57,4 @@ public class AllocationCheckScript : MonoBehaviour
         yield return new WaitForSeconds (2);
         ErrorDisplayObject.GetComponent<PopUpScript>().CloseDialog();
     }
-
 }
