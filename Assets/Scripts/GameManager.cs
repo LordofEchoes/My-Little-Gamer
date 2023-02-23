@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] EnemyManager EM;
     [SerializeField] DateSystem DS;
     [SerializeField] CharacterStats Player;
+    [SerializeField] FriendList FL;
     public int Tutorial {get;set;}
     // Start is called before the first frame update
     void Awake()
@@ -15,6 +16,7 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
         EM = new EnemyManagerBasic();
         DS = new DateSystem();
+        FL = new FriendList();
         Player = new CharacterStats();
         Player.ChangeTacticProficiency(1,"Poke", 100);
         Player.PhaseTable[1].ChangeTactic("Poke");
@@ -34,6 +36,11 @@ public class GameManager : MonoBehaviour
     public CharacterStats GetPlayer()
     {
         return Player;
+    }
+
+    public FriendList GetFriendList()
+    {
+        return FL;
     }
 
     // gender should be "Male" or "Female"

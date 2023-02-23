@@ -10441,6 +10441,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1390866364}
   - component: {fileID: 1390866366}
+  - component: {fileID: 1390866367}
   m_Layer: 0
   m_Name: UniversalGameManager
   m_TagString: Untagged
@@ -10480,6 +10481,26 @@ MonoBehaviour:
     PhaseTable: []
     TowerTable: 6400000064000000c8000000
     CurrentTower: 0
+--- !u!114 &1390866367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1390866363}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06c76905012e2d243bffeccc8b3ee3d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - clip: {fileID: 8300000, guid: 9f2406572f81964499df86861ac54ef5, type: 3}
+    name: Slow Happy
+    volume: 0.25
+    pitch: 1
+    source: {fileID: 0}
+  counter: 0
+  index: 0
 --- !u!1 &1402626821
 GameObject:
   m_ObjectHideFlags: 0
