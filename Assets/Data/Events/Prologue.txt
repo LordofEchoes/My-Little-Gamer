@@ -1,0 +1,5 @@
+Prologue
+2023,8,4
+0
+{"imagepath1":"","imagepath2":"","message":"*At your place with Wes after school*"}
+{"imagepath1":"","imagepath2":"","message":"You find a note. It reads: \"Happy birthday honey! Sorry I missed you - got called in to cover the late shift. Go ahead and open your present, though. And before you say anything, just consider it an investment in your schooling and your health - staring at that tiny screen all the time can't be good for your eyes... Love, Mom\""}

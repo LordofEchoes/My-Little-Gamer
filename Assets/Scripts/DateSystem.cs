@@ -52,7 +52,13 @@ public class DateSystem
         string years = DT.ToString("yyyy");
         return months + " " + years;
     }
-    public string CycleAsString()
+
+    public System.DateTime GetDateTime()
+    {
+        return DT;
+    }
+
+    public string GetCycleAsString()
     {
         return DayCycle.ToString();
     }
