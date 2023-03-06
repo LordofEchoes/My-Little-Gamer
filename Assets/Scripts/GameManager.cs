@@ -6,15 +6,20 @@ public class GameManager : MonoBehaviour
 {
     // GameManager script holds the EnemyManager
     [SerializeField] EnemyManager EM;
+    [SerializeField] EventManager Events;
     [SerializeField] DateSystem DS;
     [SerializeField] CharacterStats Player;
+    [SerializeField] FriendList FL;
+
     public int Tutorial {get;set;}
     // Start is called before the first frame update
     void Awake()
     {
         DontDestroyOnLoad(this.gameObject);
         EM = new EnemyManagerBasic();
+        Events = new EventManager(@"./Assets/Data/EventMetaData/MetaData.json");
         DS = new DateSystem();
+        FL = new FriendList();
         Player = new CharacterStats();
         Player.ChangeTacticProficiency(1,"Poke", 100);
         Player.PhaseTable[1].ChangeTactic("Poke");
@@ -36,6 +41,15 @@ public class GameManager : MonoBehaviour
         return Player;
     }
 
+    public FriendList GetFriendList()
+    {
+        return FL;
+    }
+
+    public EventManager GetEventManager()
+    {
+        return Events;
+    }
     // gender should be "Male" or "Female"
     public void SetGender(string gender)
     {

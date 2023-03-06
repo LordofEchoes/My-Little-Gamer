@@ -34,6 +34,13 @@ public class AudioManager : MonoBehaviour
         s.source.Play();
     }
 
+    public void PlayLooped(string name)
+    {
+        Sound s = System.Array.Find(sounds, sound => sound.name == name);
+        s.source.Play();
+        s.source.loop = true;
+    }
+
     IEnumerator PlayLoop()
     {
         System.Random Generator = new System.Random();
