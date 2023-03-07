@@ -50,11 +50,13 @@ public class DisplayEvent : MonoBehaviour
         // display the text
         UpdateEventText();
     }
+    
     // updates the text/image display
     void UpdateEventText()
     {
         EM.GetEvent().DisplayCurrentText(Person1, Person2, DisplayText);
     }
+
     // checks and activates the display screen as necessary
     public void CheckDate()
     {

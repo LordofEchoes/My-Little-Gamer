@@ -14,6 +14,7 @@ public class Dialogue
     public string message;
 }
 
+[System.Serializable]
 public class Event
 {
     string Name;
@@ -133,25 +134,40 @@ public class Event
     // return image path1
     public string GetImagePath1()
     {
-        return GetDialogue().imagepath1;
+        if(File.Exists("Assets/Resources/"+GetDialogue().imagepath1+".png"))
+        {
+            return GetDialogue().imagepath1;
+        }
+        Debug.Log($"Event GetImagePath1 not found: {"Assets/Resources/"+GetDialogue().imagepath1+".png"}");
+        return "";
     }
+
     // return image path2
     public string GetImagePath2()
     {
-        return GetDialogue().imagepath2;
+        if(File.Exists("Assets/Resources/"+GetDialogue().imagepath2+".png"))
+        {
+            return GetDialogue().imagepath2;
+        }
+        Debug.Log($"Event GetImagePath2 not found: {"Assets/Resources/"+GetDialogue().imagepath2+".png"}");
+        return "";
     }
+
     // allows for looping through dialogue
     public IEnumerator<Dialogue> GetEnumerator()
     {
         return DialoguePoints.GetEnumerator();
     }
+
     // display current dialogue
     public void DisplayCurrentText(Image image1, Image image2, TextMeshProUGUI textbox)
     {
-        image1.sprite = Resources.Load(GetImagePath1()) as Sprite;
-        image2.sprite = Resources.Load(GetImagePath2()) as Sprite;
+        // Sprite sprite1 = Resources.Load<Sprite>("Images/PlayerDefault");
+        Sprite sprite1 = Resources.Load<Sprite>(GetImagePath1());
+        image1.GetComponent<Image>().sprite = sprite1;
+        Sprite sprite2 = Resources.Load<Sprite>(GetImagePath2());
+        image2.GetComponent<Image>().sprite = sprite2;
         textbox.text = GetText();
     }
-
 
 }
