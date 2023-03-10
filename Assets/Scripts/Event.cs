@@ -144,10 +144,7 @@ public class Event
     // display current dialogue
     public void DisplayCurrentText(Image image1, Image image2, TextMeshProUGUI textbox)
     {
-<<<<<<< HEAD
-=======
         // Sprite sprite1 = Resources.Load<Sprite>("Images/PlayerDefault");
->>>>>>> 6b13dc3c4afe7090f9967f2e253e960393e743e1
         Sprite sprite1 = Resources.Load<Sprite>(GetImagePath1());
         image1.GetComponent<Image>().sprite = sprite1;
         Sprite sprite2 = Resources.Load<Sprite>(GetImagePath2());
