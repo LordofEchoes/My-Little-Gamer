@@ -116,13 +116,23 @@ public class Event
     // return image path1
     public string GetImagePath1()
     {
-        return GetDialogue().imagepath1;
+        if(File.Exists("Assets/Resources/"+GetDialogue().imagepath1+".png"))
+        {
+            return GetDialogue().imagepath1;
+        }
+        Debug.Log($"Event GetImagePath1 not found: {"Assets/Resources/"+GetDialogue().imagepath1+".png"}");
+        return "";
     }
 
     // return image path2
     public string GetImagePath2()
     {
-        return GetDialogue().imagepath2;
+        if(File.Exists("Assets/Resources/"+GetDialogue().imagepath2+".png"))
+        {
+            return GetDialogue().imagepath2;
+        }
+        Debug.Log($"Event GetImagePath2 not found: {"Assets/Resources/"+GetDialogue().imagepath2+".png"}");
+        return "";
     }
 
     // allows for looping through dialogue
@@ -134,6 +144,10 @@ public class Event
     // display current dialogue
     public void DisplayCurrentText(Image image1, Image image2, TextMeshProUGUI textbox)
     {
+<<<<<<< HEAD
+=======
+        // Sprite sprite1 = Resources.Load<Sprite>("Images/PlayerDefault");
+>>>>>>> 6b13dc3c4afe7090f9967f2e253e960393e743e1
         Sprite sprite1 = Resources.Load<Sprite>(GetImagePath1());
         image1.GetComponent<Image>().sprite = sprite1;
         Sprite sprite2 = Resources.Load<Sprite>(GetImagePath2());
