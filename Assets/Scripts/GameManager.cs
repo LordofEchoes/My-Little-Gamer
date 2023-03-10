@@ -10,16 +10,22 @@ public class GameManager : MonoBehaviour
     [SerializeField] DateSystem DS;
     [SerializeField] CharacterStats Player;
     [SerializeField] FriendList FL;
-
+    [SerializeField] TextAsset EventManagerPath;
     public int Tutorial {get;set;}
     // Start is called before the first frame update
     void Awake()
     {
         DontDestroyOnLoad(this.gameObject);
         EM = new EnemyManagerBasic();
-        Events = new EventManager(@"./Assets/Data/EventMetaData/MetaData.json");
+        Events = new EventManager(EventManagerPath.text);
         DS = new DateSystem();
         FL = new FriendList();
+        FL.AddFriend("Wes",0);
+        FL.AddFriend("Jim",1);
+        FL.AddFriend("Bob",2);
+        FL.AddFriend("Sal",3);
+        FL.AddFriend("Pal",4);
+        FL.AddFriend("Amy",5);
         Player = new CharacterStats();
         Player.ChangeTacticProficiency(1,"Poke", 100);
         Player.PhaseTable[1].ChangeTactic("Poke");

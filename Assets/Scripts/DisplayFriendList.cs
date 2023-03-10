@@ -6,8 +6,8 @@ using TMPro;
 
 public class DisplayFriendList : MonoBehaviour
 {
-    [SerializeField] GameObject Manager;
-    [SerializeField] FriendList FL;
+    private GameObject Manager;
+    private FriendList FL;
     [SerializeField] GameObject Panel,FriendObject;
     // Start is called before the first frame update
     void Start()
@@ -40,4 +40,6 @@ public class DisplayFriendList : MonoBehaviour
             NewFriend.transform.GetChild(1).GetComponent<Image>().sprite = f.StatusSprite;
         }
     }
+
+    
 }

@@ -34,49 +34,30 @@ public class Event
     // .
     // .
     // .
-    public Event(string newPath)
+    public Event(string newPath,System.DateTime date)
     {
-        // Debug.Log("Event Constructor Called");
+        //Using Text Asset:
         string path = newPath;
-        if(File.Exists(path))
+        Date = date;
+        TextAsset EventFile = Resources.Load<TextAsset>(path);
+        string[] lines = EventFile.text.Split(System.Environment.NewLine);
+        int lineNumber = 0;
+        foreach(var line in lines)
         {
-            var lines = File.ReadLines(path);
-            int lineNumber = 0;
-            foreach (var line in lines)
+            switch(lineNumber)
             {
-                // Debug.Log($"parsed line is: {line}");
-                switch(lineNumber)
-                {
-                    case 0:
-                    Name = line;
-                    break;
-                    case 1:
-                    try
-                    {
-                        int[] numbers = System.Array.ConvertAll<string,int>(line.Split(','),int.Parse);
-                        Date = new System.DateTime(numbers[0],numbers[1],numbers[2]);
-                    }
-                    catch (System.Exception)
-                    {
-                        Debug.Log($"Event Date line parse failed, can't convert file to date");
-                        throw;
-                    }
-                    break;
-                    case 2:
-                    DayCycle = Int32.Parse(line);
-                    break;
-                    default:
-                    DialoguePoints.Add(JsonConvert.DeserializeObject<Dialogue>(line));
-                    break;
-                }
-                lineNumber++;
+                case 0:
+                Name = line;
+                break;
+                case 1:
+                DayCycle = Int32.Parse(line);
+                break;
+                default:
+                DialoguePoints.Add(JsonConvert.DeserializeObject<Dialogue>(line));
+                break;
             }
+            lineNumber++;
         }
-        else
-        {
-            Debug.Log($"Event path not found: {path}\nCurrent Directory: {Directory.GetCurrentDirectory()}");
-        }
-        Date = new System.DateTime(2023,8,4); 
         ValidateEvent();
     }
 
@@ -121,9 +102,10 @@ public class Event
 
     public bool IsLastText()
     {
-        return currentIndex == DialoguePoints.Count-1;
+        // Debug.Log($"CurrentIndex: {currentIndex}\t Dialogue Count: {DialoguePoints.Count}");
+        return currentIndex == (DialoguePoints.Count-1);
     }
-
+    //increment the next text, 
     public bool NextText()
     {
         // currentIndex should never be greater than max Count, reset and return false
@@ -134,23 +116,13 @@ public class Event
     // return image path1
     public string GetImagePath1()
     {
-        if(File.Exists("Assets/Resources/"+GetDialogue().imagepath1+".png"))
-        {
-            return GetDialogue().imagepath1;
-        }
-        Debug.Log($"Event GetImagePath1 not found: {"Assets/Resources/"+GetDialogue().imagepath1+".png"}");
-        return "";
+        return GetDialogue().imagepath1;
     }
 
     // return image path2
     public string GetImagePath2()
     {
-        if(File.Exists("Assets/Resources/"+GetDialogue().imagepath2+".png"))
-        {
-            return GetDialogue().imagepath2;
-        }
-        Debug.Log($"Event GetImagePath2 not found: {"Assets/Resources/"+GetDialogue().imagepath2+".png"}");
-        return "";
+        return GetDialogue().imagepath2;
     }
 
     // allows for looping through dialogue
@@ -162,7 +134,6 @@ public class Event
     // display current dialogue
     public void DisplayCurrentText(Image image1, Image image2, TextMeshProUGUI textbox)
     {
-        // Sprite sprite1 = Resources.Load<Sprite>("Images/PlayerDefault");
         Sprite sprite1 = Resources.Load<Sprite>(GetImagePath1());
         image1.GetComponent<Image>().sprite = sprite1;
         Sprite sprite2 = Resources.Load<Sprite>(GetImagePath2());

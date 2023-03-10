@@ -10476,6 +10476,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e8821108a37f4b4eaa120ce61ea9529, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Events:
+    EventTable: []
+    MetaDataTable: []
   Player:
     MaxStat: 20
     PhaseTable: []
@@ -10483,8 +10486,7 @@ MonoBehaviour:
     CurrentTower: 0
   FL:
     MaxFriends: 25
-  Events:
-    MetaDataTable: []
+  EventManagerPath: {fileID: 4900000, guid: 18b7d142138d5184081517c54abaac62, type: 3}
 --- !u!114 &1390866367
 MonoBehaviour:
   m_ObjectHideFlags: 0
