@@ -43,7 +43,7 @@ public class DisplayEvent : MonoBehaviour
             return;
         }
         // get the Next text, if the next text is the last one, change the text.
-        if(!EM.GetEvent().NextText())
+        else if(!EM.GetEvent().NextText())
         {
             EndButton.transform.GetChild(0).transform.GetComponent<TextMeshProUGUI>().text = "End";
         }

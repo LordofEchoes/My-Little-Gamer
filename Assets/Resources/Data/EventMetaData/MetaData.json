@@ -1,7 +1,7 @@
 [
     {
         "Name": "Prologue",
-        "path": "Assets/Data/Events/Prologue.txt",
+        "path": "Data/Events/Prologue",
         "sequelpath":""
     }
 ]
