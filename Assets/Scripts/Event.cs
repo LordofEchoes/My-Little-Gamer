@@ -17,15 +17,20 @@ public class Dialogue
 [System.Serializable]
 public class Event
 {
-    string Name;
-    int DayCycle;
+    string name;
+    int daycycle;
     public List<Dialogue> DialoguePoints = new List<Dialogue>();
     int currentIndex = 0;
-    System.DateTime Date;
+    System.DateTime date;
+
+    public Event()
+    {
+        date = new System.DateTime(2023,8,4);
+    }
 
     // takes in a file path, reads each line and assigns the lines
     // file format:
-    // Name
+    // name
     // day
     // month
     // year
@@ -34,11 +39,11 @@ public class Event
     // .
     // .
     // .
-    public Event(string newPath,System.DateTime date)
+    public Event(string newPath, System.DateTime newDate)
     {
         //Using Text Asset:
         string path = newPath;
-        Date = date;
+        date = newDate;
         TextAsset EventFile = Resources.Load<TextAsset>(path);
         string[] lines = EventFile.text.Split(System.Environment.NewLine);
         int lineNumber = 0;
@@ -47,10 +52,10 @@ public class Event
             switch(lineNumber)
             {
                 case 0:
-                Name = line;
+                name = line;
                 break;
                 case 1:
-                DayCycle = Int32.Parse(line);
+                daycycle = Int32.Parse(line);
                 break;
                 default:
                 DialoguePoints.Add(JsonConvert.DeserializeObject<Dialogue>(line));
@@ -61,26 +66,33 @@ public class Event
         ValidateEvent();
     }
 
+    public override string ToString()
+    {
+        return $"Event name: {name}\t Dialogue's CurrentIndex: {currentIndex}\t DialoguePoint's Count: {DialoguePoints.Count}";
+    }
+
     public void ValidateEvent()
     {
-        Debug.Log($"Name:{Name}\tDayCycle:{DayCycle}\tDialoguePointsCount:{DialoguePoints.Count}\tfirst Message:{DialoguePoints[0].message}");
+        Debug.Log($"Event Validation:\nName: {name}\tDayCycle: {daycycle}\tDialoguePointsCount: {DialoguePoints.Count}\tFirst Message: {DialoguePoints[0].message}");
+    }
+
+    
+    // reset dialogue text
+    public void ResetEvent()
+    {
+        currentIndex = 0;
     }
 
     // Getter method for day cycle
     public int GetDayCycle()
     {
-        return DayCycle;
+        return daycycle;
     }
 
-    // Getter method for DateTime
+    // Getter method for dateTime
     public System.DateTime GetDateTime()
     {
-        return Date;
-    }
-    // reset dialogue text
-    public void ResetEvent()
-    {
-        currentIndex = 0;
+        return date;
     }
 
     // return the current text line and then increment the index to the next one.
@@ -90,27 +102,33 @@ public class Event
         if(currentIndex < DialoguePoints.Count)
         {
             return DialoguePoints[currentIndex];
-        }
+        } 
         return new Dialogue();
     }
 
     // return current Dialogue message
     public string GetText()
     {
+        // Debug.Log($"Return Dialogue text: {GetDialogue().message}");
         return GetDialogue().message;
     }
 
     public bool IsLastText()
     {
         // Debug.Log($"CurrentIndex: {currentIndex}\t Dialogue Count: {DialoguePoints.Count}");
-        return currentIndex == (DialoguePoints.Count-1);
+        return currentIndex >= (DialoguePoints.Count-1); 
     }
     //increment the next text, 
     public bool NextText()
     {
-        // currentIndex should never be greater than max Count, reset and return false
         currentIndex++;
-        return !IsLastText();
+        // currentIndex should never be greater than max Count, reset and return false
+        if(IsLastText())
+        {
+            currentIndex = DialoguePoints.Count-1;
+            return false;
+        }
+        return true;
     }
 
     // return image path1
@@ -144,6 +162,7 @@ public class Event
     // display current dialogue
     public void DisplayCurrentText(Image image1, Image image2, TextMeshProUGUI textbox)
     {
+        Debug.Log($"Dialogue Index: {currentIndex}");
         // Sprite sprite1 = Resources.Load<Sprite>("Images/PlayerDefault");
         Sprite sprite1 = Resources.Load<Sprite>(GetImagePath1());
         image1.GetComponent<Image>().sprite = sprite1;

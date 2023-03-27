@@ -1,13 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DisplayDayCycle : MonoBehaviour
 {
     GameObject Manager;
     DateSystem DS;
-    public int CycleNumber;
-    [SerializeField] GameObject Icon;
+    [SerializeField] GameObject DisplayObject;
+    [SerializeField] List<Sprite> Icons;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,19 +23,14 @@ public class DisplayDayCycle : MonoBehaviour
             Debug.Log($"Check Day Night bugged: {err}");
             throw;
         }
-        
+        Icons.Add(Resources.Load<Sprite>("Sprites/Sun"));
+        Icons.Add(Resources.Load<Sprite>("Sprites/Moon"));
+        CheckIcon();
     }
 
     // Update is called once per frame, only called while active
-    void Update()
+    public void CheckIcon()
     {
-        if(DS.GetCycle() == CycleNumber)
-        {
-            Icon.SetActive(true);
-        }
-        else
-        {
-            Icon.SetActive(false);
-        }
+        DisplayObject.transform.GetComponent<Image>().sprite = Icons[DS.GetCycle()];
     }
 }

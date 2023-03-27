@@ -75,7 +75,7 @@ public class CalendarDisplay : MonoBehaviour
                     }
                     
                 }
-                Debug.Log(StartDateTime.Day.ToString());
+                // Debug.Log(StartDateTime.Day.ToString());
             }
         }
         

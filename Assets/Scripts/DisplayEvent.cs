@@ -8,9 +8,11 @@ public class DisplayEvent : MonoBehaviour
 {
     GameManager Manager;
     DateSystem DS;
+    Event E;
     [SerializeField] EventManager EM;
     [SerializeField] TextMeshProUGUI DisplayText;
     [SerializeField] GameObject DisplayScreen;
+    [SerializeField] GameObject GameScreen;
     [SerializeField] Image Person1;
     [SerializeField] Image Person2;
     [SerializeField] GameObject EndButton;
@@ -23,27 +25,28 @@ public class DisplayEvent : MonoBehaviour
             Manager = GameObject.Find("UniversalGameManager").GetComponent<GameManager>();
             DS =  Manager.GetDateSystem();
             EM = Manager.GetEventManager();
+            E = EM.GetEvent();
         }
         catch(System.NullReferenceException err)
         {
             EM = new EventManager();
             Debug.Log("DisplayEvent Manager bugged: " + err.Message);
         }
-        CheckDate();
+        CheckDate(true);
     }
 
     // display text, adjust end button text and action accordingly when Next is clicked.
     public void OnChange()
     {
         //if the event is on the last text, go next screen and breakout
-        if(EM.GetEvent().IsLastText())
+        if(E.IsLastText())
         {
             EndButton.transform.GetChild(0).transform.GetComponent<TextMeshProUGUI>().text = "Next";
             gameObject.GetComponent<TransitionTextScript>().CloseDialog();
             return;
         }
         // get the Next text, if the next text is the last one, change the text.
-        else if(!EM.GetEvent().NextText())
+        else if(!E.NextText())
         {
             EndButton.transform.GetChild(0).transform.GetComponent<TextMeshProUGUI>().text = "End";
         }
@@ -54,22 +57,31 @@ public class DisplayEvent : MonoBehaviour
     // updates the text/image display
     void UpdateEventText()
     {
-        EM.GetEvent().DisplayCurrentText(Person1, Person2, DisplayText);
+        // Debug.Log($"Event Display Requested");
+        E.DisplayCurrentText(Person1, Person2, DisplayText);
     }
 
     // checks and activates the display screen as necessary
-    public void CheckDate()
+    public void CheckDate(bool check = false)
     {
-        if(DS.GetDateTime() == EM.GetEventDateTime() && DS.GetCycle() == EM.GetEvent().GetDayCycle())
+        if(check)
+        {
+            if(DS.GetDateTime() == EM.GetEventDateTime() && DS.GetCycle() == E.GetDayCycle())
+            {
+                DisplayScreen.SetActive(true);
+                GameScreen.SetActive(false);
+                UpdateEventText();
+            }
+            else
+            {
+                DisplayScreen.SetActive(false);
+                GameScreen.SetActive(true);
+            }
+        }
+        else
         {
             DisplayScreen.SetActive(true);
             UpdateEventText();
         }
-        else
-        {
-            DisplayScreen.SetActive(false);
-        }
     }
-
-
 }

@@ -1,0 +1,9 @@
+{
+    "ID":0,
+    "level":"0",
+    "Name":"Wes",
+    "Background" : "Wes is a smol boi",
+    "PicturePath":"Images/Wes",
+    "StatusSpritePath":"Images/StatusSprite0",
+    "XP":"0"
+}

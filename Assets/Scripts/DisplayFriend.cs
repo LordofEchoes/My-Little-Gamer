@@ -31,24 +31,25 @@ public class DisplayFriend : MonoBehaviour
             FL = new FriendList();
             Debug.Log("DisplayFriendbugged, friendlist not found: " + err.Message);
         }
-        
     }
 
     public void DisplayInfo(string FriendName)
     {
         // find the friend from the friendlist
-        foreach(Friend f in FL)
+        foreach(KeyValuePair<string,Friend> f in FL)
         {
-            if(f.Name == FriendName)
+            if(f.Key == FriendName)
             {
-                friend = f;
+                friend = f.Value;
                 // Debug.Log($"DisplayFriend's friend has been found");
                 break;
             }
         }
         // display friend on the panel
         Panel.transform.GetChild(0).transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = friend.Name;
-        Panel.transform.GetChild(1).GetComponent<Image>().sprite = friend.picture;
+        Panel.transform.GetChild(1).GetComponent<Image>().sprite = Resources.Load<Sprite>(friend.PicturePath);
+        Panel.transform.GetChild(2).transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = friend.Background;
     }
 
 }
+ 

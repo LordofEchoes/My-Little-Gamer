@@ -44,7 +44,6 @@ public class PopUpScript : MonoBehaviour
                 Object.transform.LeanMoveLocalX(NewLocation,Speed).setEaseOutExpo().delay = DelayVar;      
                 break;
         }
-          
     }
 
     public void CloseDialog()
