@@ -42,13 +42,13 @@ public class DateSystem
     public string DateAsString()
     {
         string days = DT.ToString("dd");
-        string months =  MonthName[System.Convert.ToInt32(DT.ToString("MM"))];
+        string months = MonthName[DT.Month];
         string years = DT.ToString("yyyy");
         return months + " " + days + ", " + years;
     }
     public string MonthYearAsString()
     {
-        string months =  MonthName[System.Convert.ToInt32(DT.ToString("MM"))];
+        string months =  MonthName[DT.Month];
         string years = DT.ToString("yyyy");
         return months + " " + years;
     }

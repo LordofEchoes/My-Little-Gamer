@@ -17,15 +17,16 @@ public class PostMatch : MonoBehaviour
     {
         try
         {
-            Character = CharacterPanel == 1 ? GameObject.Find("UniversalGameManager").GetComponent<GameManager>().GetPlayer() : GameObject.Find("UniversalGameManager").GetComponent<GameManager>().GetEnemyManager().GetCurrentEnemy();
+            Character = CharacterPanel == 0 ? GameObject.Find("UniversalGameManager").GetComponent<GameManager>().GetPlayer() : GameObject.Find("UniversalGameManager").GetComponent<GameManager>().GetEnemyManager().GetCurrentEnemy();
         }
         catch(System.NullReferenceException err)
         {
             Debug.Log($"PostMatch Error, cannot get player or enemy stats: {err.Message}");
         }
+        StatusUpdate();
     }
     
-    public void Update()
+    public void StatusUpdate()
     {
         StatusObject.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = Character.Gold.ToString();
         StatusObject.transform.GetChild(5).GetComponent<TextMeshProUGUI>().text = Character.Gold.GetCreepScore().ToString();
@@ -51,6 +52,5 @@ public class PostMatch : MonoBehaviour
         {
             Debug.Log($"PostMatch can't get the winner from the battleScreen: {err.Message}");
         }
-        
     }
 }

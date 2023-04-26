@@ -37,7 +37,8 @@ public class DisplayEvent : MonoBehaviour
 
     // display text, adjust end button text and action accordingly when Next is clicked.
     public void OnChange()
-    {
+    { 
+        Debug.Log("Onchange clicked");
         //if the event is on the last text, go next screen and breakout
         if(E.IsLastText())
         {

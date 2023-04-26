@@ -4,12 +4,13 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class DisplayFriend : MonoBehaviour
+public class DisplayFriendManager : MonoBehaviour
 {
     
     private GameObject Manager;
     private FriendList FL;
-    private Friend friend;
+    private Friend currentFriend;
+    private string currentAction;
     [SerializeField] GameObject Panel;
     // Panel Arrangement:
     // Child 0: Name
@@ -40,16 +41,32 @@ public class DisplayFriend : MonoBehaviour
         {
             if(f.Key == FriendName)
             {
-                friend = f.Value;
+                // FriendName found, select it as the current Friend
+                SelectFriend(f.Value);
                 // Debug.Log($"DisplayFriend's friend has been found");
                 break;
             }
         }
         // display friend on the panel
-        Panel.transform.GetChild(0).transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = friend.Name;
-        Panel.transform.GetChild(1).GetComponent<Image>().sprite = Resources.Load<Sprite>(friend.PicturePath);
-        Panel.transform.GetChild(2).transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = friend.Background;
+        Panel.transform.GetChild(0).transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = currentFriend.Name;
+        Panel.transform.GetChild(1).GetComponent<Image>().sprite = Resources.Load<Sprite>(currentFriend.PicturePath); 
+        Panel.transform.GetChild(2).transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = currentFriend.Background;
+        Debug.Log($"DisplayManager ImagePath:{currentFriend.PicturePath}");
     }
 
+    public void SelectFriend(Friend newFriend)
+    {
+        currentFriend = newFriend;
+    }
+    
+    public Friend GetFriend()
+    {
+        return currentFriend;
+    }
+
+    public void SelectAction(string newAction)
+    {
+        currentAction = newAction;
+    }
 }
  

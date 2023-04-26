@@ -4,47 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using Newtonsoft.Json;
 
-// This class is used to store the status' paths for the 6 sprite animations.
-public class StatusPath
-{
-    private static string SpritePath0 = "Images/Heart0";
-    private static string SpritePath1 = "Images/Heart1";
-    private static string SpritePath2 = "Images/Heart2";
-    private static string SpritePath3 = "Images/Heart3";
-    private static string SpritePath4 = "Images/Heart4";
-    private static string SpritePath5 = "Images/Heart5";
-
-    public string path;
-
-    public StatusPath(int level = 0)
-    {
-        switch(level)
-        {
-            case 0:
-            path = SpritePath0;
-            break;
-            case 1:
-            path = SpritePath1;
-            break;
-            case 2:
-            path = SpritePath2;
-            break;
-            case 3:
-            path = SpritePath3;
-            break;
-            case 4:
-            path = SpritePath4;
-            break;
-            case 5:
-            path = SpritePath5;
-            break;
-            default:
-            path = SpritePath0;
-            break;
-        }
-    }
-}
-
 // Text class
 [System.Serializable]
 public class Friend
@@ -63,6 +22,7 @@ public class Friend
     {
         Name = newName;
         level = newLevel;
+        PicturePath = picturePath;
     }
 
     public override string ToString()
@@ -77,14 +37,44 @@ public class Friend
         {
             level++;
             XP /= maxXP;
+            StatusSpritePath = StatusPath(level);
         }
         if(level > maxLevel)
         {
             level = maxLevel;
             XP = maxXP;
         }
+        Debug.Log($"Name: {Name}\nCurrent Level: {level}");
     }
 
+    // This method is using to store the sprite paths and used by friend to set the right sprite path
+    public string StatusPath(int level = 0)
+    {
+        // change the paths here
+        string SpritePath0 = "Images/Heart0";
+        string SpritePath1 = "Images/Heart1";
+        string SpritePath2 = "Images/Heart2";
+        string SpritePath3 = "Images/Heart3";
+        string SpritePath4 = "Images/Heart4";
+        string SpritePath5 = "Images/Heart5";
+        switch(level)
+        {
+            case 0:
+            return SpritePath0;
+            case 1:
+            return SpritePath1;
+            case 2:
+            return SpritePath2;
+            case 3:
+            return SpritePath3;
+            case 4:
+            return SpritePath4;
+            case 5:
+            return SpritePath5;
+            default:
+            return SpritePath0;
+        }
+    }
 }
 
 

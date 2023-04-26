@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class OpenTrainingUI : MonoBehaviour
+public class CheckActionUI : MonoBehaviour
 {
-    [SerializeField] GameObject Manager;
-    [SerializeField] DateSystem DS;
-    [SerializeField] Button TrainingButton;
+    private GameObject Manager;
+    private DateSystem DS;
+    [SerializeField] GameObject ActionUIParent;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,11 +29,13 @@ public class OpenTrainingUI : MonoBehaviour
         // can train if cycle is morning
         if (DS.GetCycle() == 0 && DS.GetDayOfWeek() != 0)
         {
-            TrainingButton.interactable = true;
+            ActionUIParent.transform.GetChild(0).GetComponent<Button>().interactable = true;
+            ActionUIParent.transform.GetChild(1).GetComponent<Button>().interactable = true;
         }
         else
         {
-            TrainingButton.interactable = false;
+            ActionUIParent.transform.GetChild(0).GetComponent<Button>().interactable = false;
+            ActionUIParent.transform.GetChild(1).GetComponent<Button>().interactable = false;
         }
     }
 

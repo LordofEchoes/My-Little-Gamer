@@ -9,9 +9,20 @@ using Newtonsoft.Json;
 
 public class Dialogue
 {
-    public string imagepath1;
-    public string imagepath2;
-    public string message;
+    // ID is the identifying number that points to this Dialogue.
+    public int ID;
+    // ImagePath1, ImagePath2, Message all used to convey information to the user
+    public string ImagePath1;
+    public string ImagePath2;
+    public string Message;
+    // ResponsePath is the integer key that indicates how the System responses to the choice made by the user.
+    public List<int> ResponsePath;
+    // Option text should be 0-4 strings that indicates the responses of the user
+    public List<string> ResponseText;
+    // Reward is a List of a List. 
+    // First List indicates the Reward for each Response, Second List is a "Tuple" of [Stat,Amount]
+    // e.g. [[1,10],[0,20],[2,-10],[0,-10]]
+    public List<List<int>> Reward;
 }
 
 [System.Serializable]
@@ -19,7 +30,7 @@ public class Event
 {
     string name;
     int daycycle;
-    public List<Dialogue> DialoguePoints = new List<Dialogue>();
+    public Dictionary<int,Dialogue> DialoguePoints = new Dictionary<int,Dialogue>();
     int currentIndex = 0;
     System.DateTime date;
 
@@ -58,7 +69,8 @@ public class Event
                 daycycle = Int32.Parse(line);
                 break;
                 default:
-                DialoguePoints.Add(JsonConvert.DeserializeObject<Dialogue>(line));
+                Dialogue DialogueObject = JsonConvert.DeserializeObject<Dialogue>(line);
+                DialoguePoints.Add(DialogueObject.ID, DialogueObject);
                 break;
             }
             lineNumber++;
@@ -73,7 +85,7 @@ public class Event
 
     public void ValidateEvent()
     {
-        Debug.Log($"Event Validation:\nName: {name}\tDayCycle: {daycycle}\tDialoguePointsCount: {DialoguePoints.Count}\tFirst Message: {DialoguePoints[0].message}");
+        Debug.Log($"Event Validation:\nName: {name}\tDayCycle: {daycycle}\tDialoguePointsCount: {DialoguePoints.Count}\tFirst Message: {DialoguePoints[0].Message}");
     }
 
     
@@ -106,11 +118,11 @@ public class Event
         return new Dialogue();
     }
 
-    // return current Dialogue message
+    // return current Dialogue Message
     public string GetText()
     {
-        // Debug.Log($"Return Dialogue text: {GetDialogue().message}");
-        return GetDialogue().message;
+        // Debug.Log($"Return Dialogue text: {GetDialogue().Message}");
+        return GetDialogue().Message;
     }
 
     public bool IsLastText()
@@ -118,6 +130,7 @@ public class Event
         // Debug.Log($"CurrentIndex: {currentIndex}\t Dialogue Count: {DialoguePoints.Count}");
         return currentIndex >= (DialoguePoints.Count-1); 
     }
+    
     //increment the next text, 
     public bool NextText()
     {
@@ -134,27 +147,17 @@ public class Event
     // return image path1
     public string GetImagePath1()
     {
-        if(File.Exists("Assets/Resources/"+GetDialogue().imagepath1+".png"))
-        {
-            return GetDialogue().imagepath1;
-        }
-        Debug.Log($"Event GetImagePath1 not found: {"Assets/Resources/"+GetDialogue().imagepath1+".png"}");
-        return "";
+        return GetDialogue().ImagePath1;
     }
 
     // return image path2
     public string GetImagePath2()
     {
-        if(File.Exists("Assets/Resources/"+GetDialogue().imagepath2+".png"))
-        {
-            return GetDialogue().imagepath2;
-        }
-        Debug.Log($"Event GetImagePath2 not found: {"Assets/Resources/"+GetDialogue().imagepath2+".png"}");
-        return "";
+        return GetDialogue().ImagePath2;
     }
 
     // allows for looping through dialogue
-    public IEnumerator<Dialogue> GetEnumerator()
+    public IEnumerator GetEnumerator()
     {
         return DialoguePoints.GetEnumerator();
     }

@@ -1,12 +1,12 @@
 Prologue
 0
-{"imagepath1":"Images/None","imagepath2":"Images/None","message":"*At your place with Wes after school*"}
-{"imagepath1":"Images/PlayerDefault","imagepath2":"Images/None","message":"You find a note. It reads: \"Happy birthday honey! Sorry I missed you - got called in to cover the late shift. Go ahead and open your present, though. And before you say anything, just consider it an investment in your schooling and your health - staring at that tiny screen all the time can't be good for your eyes... Love, Mom\""}
-{"imagepath1":"Images/PlayerDefault","imagepath2":"Images/None","message":"*Crinkle crinkle* You unwrap a large-ish box and see...\nYou:Holy... a gaming laptop?"}
-{"imagepath1":"Images/WesDefault","imagepath2":"Images/None","message":"Wes: *Grabbing it* Yooo you actually gotta game now, can’t wuss out any more."}
-{"imagepath1":"Images/PlayerDefault","imagepath2":"Images/None","message":"You: Whaddya mean wuss out? I just..."}
-{"imagepath1":"Images/WesDefault","imagepath2":"Images/None","message":"Wes: \"Have homework to do… I think I hear my mom calling me... my laptop can’t handle it.\" Well now you have the laptop, your mom’s not here, and... screw homework. No excuses."}
-{"imagepath1":"Images/PlayerDefault","imagepath2":"Images/None","message":"You: Ehh I'm just not good at it, so why bother ya know."}
-{"imagepath1":"Images/WesDefault","imagepath2":"Images/None","message":"Wes: You're not that bad, and I know you're playing it all the time, just when I'm not on. All you gotta do is learn the strats. I'll teach you. "}
-{"imagepath1":"Images/PlayerDefault","imagepath2":"Images/None","message":"You: I don't know..."}
-{"imagepath1":"Images/WesDefault","imagepath2":"Images/None","message":"Wes: No. Download it, go."}
+{"ID":0,"ImagePath1":"Images/None","ImagePath2":"Images/None","Message":"*At your place with Wes after school*","ResponsePath":[],"ResponseText":[],"Reward":[]}
+{"ID":1,"ImagePath1":"Images/PlayerDefault","ImagePath2":"Images/None","Message":"You find a note. It reads: \"Happy birthday honey! Sorry I missed you - got called in to cover the late shift. Go ahead and open your present, though. And before you say anything, just consider it an investment in your schooling and your health - staring at that tiny screen all the time can't be good for your eyes... Love, Mom\"","ResponsePath":[],"ResponseText":[],"Reward":[]}
+{"ID":2,"ImagePath1":"Images/PlayerDefault","ImagePath2":"Images/None","Message":"*Crinkle crinkle* You unwrap a large-ish box and see...\nYou:Holy... a gaming laptop?","ResponsePath":[],"ResponseText":[],"Reward":[]}
+{"ID":3,"ImagePath1":"Images/WesDefault","ImagePath2":"Images/None","Message":"Wes: *Grabbing it* Yooo you actually gotta game now, can’t wuss out any more.","ResponsePath":[],"ResponseText":[],"Reward":[]}
+{"ID":4,"ImagePath1":"Images/PlayerDefault","ImagePath2":"Images/None","Message":"You: Whaddya mean wuss out? I just...","ResponsePath":[],"ResponseText":[],"Reward":[]}
+{"ID":5,"ImagePath1":"Images/WesDefault","ImagePath2":"Images/None","Message":"Wes: \"Have homework to do… I think I hear my mom calling me... my laptop can’t handle it.\" Well now you have the laptop, your mom’s not here, and... screw homework. No excuses.","ResponsePath":[],"ResponseText":[],"Reward":[]}
+{"ID":6,"ImagePath1":"Images/PlayerDefault","ImagePath2":"Images/None","Message":"You: Ehh I'm just not good at it, so why bother ya know.","ResponsePath":[],"ResponseText":[],"Reward":[]}
+{"ID":7,"ImagePath1":"Images/WesDefault","ImagePath2":"Images/None","Message":"Wes: You're not that bad, and I know you're playing it all the time, just when I'm not on. All you gotta do is learn the strats. I'll teach you. ","ResponsePath":[],"ResponseText":[],"Reward":[]}
+{"ID":8,"ImagePath1":"Images/PlayerDefault","ImagePath2":"Images/None","Message":"You: I don't know...","ResponsePath":[],"ResponseText":[],"Reward":[]}
+{"ID":9,"ImagePath1":"Images/WesDefault","ImagePath2":"Images/None","Message":"Wes: No. Download it, go.","ResponsePath":[],"ResponseText":[],"Reward":[]}
