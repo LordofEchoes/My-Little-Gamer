@@ -2,57 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
-// This class is used to store the status' paths for the 6 sprite animations.
-public class StatusPath
-{
-    private static string SpritePath0 = "Images/Heart0";
-    private static string SpritePath1 = "Images/Heart1";
-    private static string SpritePath2 = "Images/Heart2";
-    private static string SpritePath3 = "Images/Heart3";
-    private static string SpritePath4 = "Images/Heart4";
-    private static string SpritePath5 = "Images/Heart5";
-
-    public string path;
-
-    public StatusPath(int level = 0)
-    {
-        switch(level)
-        {
-            case 0:
-            path = SpritePath0;
-            break;
-            case 1:
-            path = SpritePath1;
-            break;
-            case 2:
-            path = SpritePath2;
-            break;
-            case 3:
-            path = SpritePath3;
-            break;
-            case 4:
-            path = SpritePath4;
-            break;
-            case 5:
-            path = SpritePath5;
-            break;
-            default:
-            path = SpritePath0;
-            break;
-        }
-    }
-}
+using Newtonsoft.Json;
 
 // Text class
 [System.Serializable]
 public class Friend
 {
+    public int ID;
     public int level;
-    private int XP;
     public string Name;
-    public Sprite picture;
-    public Sprite StatusSprite;
+    public string Background;
+    public string PicturePath;
+    public string StatusSpritePath;
+    private int XP;
     private static int maxXP = 1000;
     private static int maxLevel = 5;
 
@@ -60,9 +22,7 @@ public class Friend
     {
         Name = newName;
         level = newLevel;
-        SetPicture(picturePath);
-        StatusSprite = Resources.Load<Sprite>(new StatusPath(level).path);
-        
+        PicturePath = picturePath;
     }
 
     public override string ToString()
@@ -77,27 +37,61 @@ public class Friend
         {
             level++;
             XP /= maxXP;
+            StatusSpritePath = StatusPath(level);
         }
         if(level > maxLevel)
         {
             level = maxLevel;
             XP = maxXP;
         }
-        StatusSprite = Resources.Load<Sprite>(new StatusPath(level).path);
+        Debug.Log($"Name: {Name}\nCurrent Level: {level}");
     }
 
-    public void SetPicture(string path)
+    // This method is using to store the sprite paths and used by friend to set the right sprite path
+    public string StatusPath(int level = 0)
     {
-        picture = Resources.Load<Sprite>(path);
+        // change the paths here
+        string SpritePath0 = "Images/Heart0";
+        string SpritePath1 = "Images/Heart1";
+        string SpritePath2 = "Images/Heart2";
+        string SpritePath3 = "Images/Heart3";
+        string SpritePath4 = "Images/Heart4";
+        string SpritePath5 = "Images/Heart5";
+        switch(level)
+        {
+            case 0:
+            return SpritePath0;
+            case 1:
+            return SpritePath1;
+            case 2:
+            return SpritePath2;
+            case 3:
+            return SpritePath3;
+            case 4:
+            return SpritePath4;
+            case 5:
+            return SpritePath5;
+            default:
+            return SpritePath0;
+        }
     }
-
 }
 
+
+// friendlist stores the friend 
 [System.Serializable]
 public class FriendList
 {
     public int MaxFriends = 25;
-    List<Friend> FL = new List<Friend>();
+    SortedDictionary<string, Friend> FL = new SortedDictionary<string,Friend>();
+
+    // Add a friend using the name and path
+    public void AddFriend(string name, string path)
+    {
+        // Debug.Log($"Adding name {name} and path {path} to FriendsList");
+        FL.Add(name, JsonConvert.DeserializeObject<Friend>(Resources.Load<TextAsset>(path).text));
+    }
+    
     //Add a friend
     public void AddFriend(string newName, int newLevel = 0, string picturePath = "Images/None")
     {
@@ -106,11 +100,16 @@ public class FriendList
             Debug.Log("FriendList Count over the limit!");
         }
         Friend NewFriend = new Friend(newName, newLevel);
-        FL.Add(NewFriend);
+        FL.Add(newName, NewFriend);
     }
 
-    public IEnumerator<Friend> GetEnumerator()
+    public IEnumerator<KeyValuePair<string,Friend>> GetEnumerator()
     {
         return FL.GetEnumerator();
+    }
+
+    public bool ContainsKey(string Key)
+    {
+        return FL.ContainsKey(Key);
     }
 }

@@ -1,0 +1,10 @@
+{
+    "GreetingText":[
+        {"ID":0,"ImagePath1":"Images/WesDefault","ImagePath2":"Images/None","Message":"Cowabunga!","ResponsePath":[],"ResponseText":[],"Reward":[]}
+    ],
+    "TalkText": [
+        {"ID":0,"ImagePath1":"Images/WesDefault","ImagePath2":"Images/None","Message":"Nice to see you, what do you think about MOBAs?","ResponsePath":[1,1,2,2],"ResponseText":["MOBAs are great!", "LEt's play later!", "What's a Moba?", "Absolutely Disgusting"],"Reward":[[6,10],[6,10],[6,-10],[6,-10]]},
+        {"ID":1,"ImagePath1":"Images/WesDefault","ImagePath2":"Images/None","Message":"I like you more now","ResponsePath":[],"ResponseText":[],"Reward":[]}
+        {"ID":2,"ImagePath1":"Images/WesDefault","ImagePath2":"Images/None","Message":"You're a dissappointment","ResponsePath":[],"ResponseText":[],"Reward":[]}
+    ] 
+}

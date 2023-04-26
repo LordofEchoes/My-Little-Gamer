@@ -11,6 +11,7 @@ public class EventMetaData
     public string Name;
     public string path;
     public string sequelpath;
+    public List<string> People;
 
     public override string ToString()
     {
@@ -41,7 +42,12 @@ public class EventManager
         MetaDataTable = new List<EventMetaData>();
         BuildMetaDataTable();
         VerifyMetaDataTable();
-        GenerateEvent(0);
+        VerifyEventTable();
+    }
+
+    public override string ToString()
+    {
+        return $"MetaDataTable's Count{MetaDataTable.Count}\tEventTable's Count{EventTable.Count}";
     }
 
     // builds the metadata path table for each event.(smaller than each event)
@@ -72,25 +78,51 @@ public class EventManager
         }
     }
 
-    public void GenerateEvent(int EventNumber = -1)
+    public void VerifyEventTable()
     {
+        for(int i = 0; i < EventTable.Count;i++)
+        {
+            Debug.Log($"EventTable index {i}: {EventTable[i]}\n");
+        }
+    }
+    // Generate Event, return list of names that are friends
+    public List<string> GenerateEvent(int num = -1)
+    {
+        // If No possible events just quit
+        if(MetaDataTable.Count == 0)
+        {
+            Debug.Log($"No Events could be generated");
+            return new List<string>();
+        }
         // Delete value from the path table whenever generator picks, this way no duplicate events
         System.Random Generator = new System.Random();
-        int Roll = EventNumber != -1 ? EventNumber : Generator.Next(0,MetaDataTable.Count); 
+        int Roll = num != -1 ? num : Generator.Next(0,MetaDataTable.Count);
+        Debug.Log($"EventManager Event Generator Roll: {Roll}");
         // Events happen everyweek?
         System.DateTime newDate = new System.DateTime(2023,8,4).AddDays(7*EventTable.Count);
         EventTable.Add(new Event(MetaDataTable[Roll].path, newDate));
+        List<string> ret = MetaDataTable[Roll].People;
         MetaDataTable.RemoveAt(Roll);
+        return ret;
     }
-
+ 
     // return Current event
     public Event GetEvent()
     {
-        return EventTable[EventNumber];
+        // VerifyEventTable();
+        // Debug.Log($"Event Number: {EventNumber}\t EventTable Count: {EventTable.Count}");
+        if(EventNumber < EventTable.Count)
+        {
+            return EventTable[EventNumber];
+        }
+        return new Event();
     }
+
     // return current event's datetime
     public System.DateTime GetEventDateTime()
     {
         return EventTable[EventNumber].GetDateTime();
     }
+
+    
 }

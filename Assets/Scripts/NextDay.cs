@@ -42,7 +42,7 @@ public class NextDay : MonoBehaviour
             NextDayButton.interactable = true;
             gameObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Next Day";
         }
-        else if (NextDayButton.interactable == true && DS.CheckDay() == false)
+        else if(NextDayButton.interactable == true && DS.CheckDay() == false)
         {
             NextDayButton.interactable = false;
             gameObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Next Day";

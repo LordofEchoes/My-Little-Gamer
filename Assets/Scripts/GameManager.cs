@@ -17,18 +17,12 @@ public class GameManager : MonoBehaviour
     {
         DontDestroyOnLoad(this.gameObject);
         EM = new EnemyManagerBasic();
+        EventManagerPath = Resources.Load<TextAsset>("Data/EventMetaData/MetaData");
         Events = new EventManager(EventManagerPath.text);
         DS = new DateSystem();
         FL = new FriendList();
-        FL.AddFriend("Wes",0);
-        FL.AddFriend("Jim",1);
-        FL.AddFriend("Bob",2);
-        FL.AddFriend("Sal",3);
-        FL.AddFriend("Pal",4);
-        FL.AddFriend("Amy",5);
+        GenerateEvent();
         Player = new CharacterStats();
-        Player.ChangeTacticProficiency(1,"Poke", 100);
-        Player.PhaseTable[1].ChangeTactic("Poke");
     }
 
     public DateSystem GetDateSystem()
@@ -54,8 +48,10 @@ public class GameManager : MonoBehaviour
 
     public EventManager GetEventManager()
     {
+        Debug.Log(Events);
         return Events;
     }
+
     // gender should be "Male" or "Female"
     public void SetGender(string gender)
     {
@@ -72,6 +68,21 @@ public class GameManager : MonoBehaviour
     public void SetAmount(int amount)
     {
         Player.Amount = amount;
+    }
+
+    public void GenerateEvent(int n = -1)
+    {
+        // generate event, receive list of potential friends
+        List<string> friends = Events.GenerateEvent(n);
+        // add friends to friends list
+        foreach(var name in friends)
+        {
+            // name not in Friends List, add them in
+            if(!FL.ContainsKey(name))
+            {
+                FL.AddFriend(name, $"Data/Friends/{name}");
+            }
+        }
     }
 
 }

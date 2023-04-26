@@ -12,7 +12,7 @@ public class DisplayName : MonoBehaviour
     public TextMeshProUGUI ValueText;
     
     // Start is called before the first frame update
-    public void OnEnable()
+    public void Start()
     {
         try
         {

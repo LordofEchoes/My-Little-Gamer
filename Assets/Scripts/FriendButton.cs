@@ -14,6 +14,6 @@ public class FriendButton : MonoBehaviour
         {
             Panel.transform.GetChild(0).gameObject.SetActive(true);
         }
-        Panel.GetComponent<DisplayFriend>().DisplayInfo(gameObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text);
+        Panel.GetComponent<DisplayFriendManager>().DisplayInfo(gameObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text);
     }
 }

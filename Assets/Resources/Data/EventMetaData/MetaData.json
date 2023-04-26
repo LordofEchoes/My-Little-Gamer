@@ -2,6 +2,7 @@
     {
         "Name": "Prologue",
         "path": "Data/Events/Prologue",
-        "sequelpath":""
+        "sequelpath":"",
+        "People":["Wes"]
     }
 ]

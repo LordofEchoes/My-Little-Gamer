@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// Tutorial Scene moved to the start of the game. 
 public class TutorialScreen : MonoBehaviour
 {
     GameManager Manager;
     [SerializeField] GameObject TS;
     // Override is the screen that gets replaced by the tutorial, the end of the tutorial returns to the Override.      
-    [SerializeField] GameObject Override;
+    // [SerializeField] GameObject Override;
     // Start is called before the first frame update
     void Start()
     {
@@ -36,19 +37,19 @@ public class TutorialScreen : MonoBehaviour
         {
             Debug.Log($"Tutorial Screen on: {Manager.Tutorial}");
             TS.SetActive(true);
-            if(Override != null)
-            {
-                Override.SetActive(false);
-            }
+            // if(Override != null)
+            // {
+            //     Override.SetActive(false);
+            // }
         }
         else
         {
             Debug.Log($"Tutorial Screen off: {Manager.Tutorial}");
             TS.SetActive(false);
-            if(Override != null)
-            {
-                Override.SetActive(true);
-            }
+            // if(Override != null)
+            // {
+            //     Override.SetActive(true);
+            // }
         }
     }
     public void TutorialFinish()
